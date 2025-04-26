@@ -1,7 +1,7 @@
 import streamlit as st
 
-# Link GIF animasi laboratory/kimiawi
-link_lab_gif = "https://media.giphy.com/media/3orieQEA4hCz5Q3lYk/giphy.gif"
+# Link GIF animasi laboratory/kimiawi (GIF BARU dari user)
+link_lab_gif = "https://media4.giphy.com/media/l0Iyb2pEevoDThkFW/giphy.gif?cid=6c09b952wi2cy0dz894ts6wn0a47it0u8fwi1vl64uggrtmk&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g"
 
 # Simbol-simbol Kimiawi
 CHEM_FLASK = "🧪"
