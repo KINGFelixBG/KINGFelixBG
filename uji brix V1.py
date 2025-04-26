@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
@@ -8,6 +9,7 @@ st.write("""
 Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, dengan koreksi suhu.
 """)
 
+# ➕ Penjelasan rumus
 with st.expander("📐 Rumus Perhitungan Brix"):
     st.write("""
     Rumus untuk menghitung koreksi kadar Brix berdasarkan suhu:
@@ -19,9 +21,10 @@ with st.expander("📐 Rumus Perhitungan Brix"):
     - Faktor Koreksi = 0.03 °Bx/°C
     """)
 
+# ➕ Model 3D Interaktif
 with st.expander("🔬 Lihat Alat Uji Brix (Model 3D Interaktif + Animasi)"):
     components.html(
-        '''
+        """
         <model-viewer src="https://huggingface.co/datasets/yuntian-deng/public-assets/resolve/main/refraktometer_animasi.glb" 
           alt="Refraktometer 3D" 
           auto-rotate 
@@ -32,7 +35,7 @@ with st.expander("🔬 Lihat Alat Uji Brix (Model 3D Interaktif + Animasi)"):
         </model-viewer>
 
         <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-        ''',
+        """,
         height=550,
     )
 
