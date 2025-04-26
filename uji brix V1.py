@@ -22,36 +22,28 @@ def back_button():
     if st.button("🏠 Kembali ke Menu"):
         st.session_state.page = "menu"
 
-# Fungsi suara klik
-st.markdown("""
+# Suara klik
+dalam_html = """
 <audio id="clickSound" src="https://freesound.org/data/previews/146/146725_2511580-lq.mp3"></audio>
 <script>
 function playClick() {
     document.getElementById("clickSound").play();
 }
 </script>
-""", unsafe_allow_html=True)
+"""
+st.markdown(dalam_html, unsafe_allow_html=True)
 
 # Fungsi Menu Utama
 def show_menu():
-    # CSS Minecraft untuk Menu Utama
     st.markdown(
         """
         <style>
         .stApp {
-            background: url('/mnt/data/d032dd20-159b-4606-ab50-b4375589e7d7.png') no-repeat center center fixed;
+            background: url('https://i.pinimg.com/736x/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg') no-repeat center center fixed;
             background-size: cover;
         }
         .block-container {
             background-color: rgba(0, 0, 0, 0.0);
-        }
-        h1 {
-            font-family: 'Press Start 2P', cursive;
-            color: white;
-            text-shadow: 3px 3px 5px black;
-            text-align: center;
-            font-size: 50px;
-            margin-top: 50px;
         }
         .stButton>button {
             font-family: 'Press Start 2P', cursive;
@@ -75,10 +67,22 @@ def show_menu():
         unsafe_allow_html=True
     )
 
-    # Judul Besar
-    st.markdown("<h1>UJI BRIX PADA PANGAN</h1>", unsafe_allow_html=True)
+    # Judul Minecraft-style
+    st.markdown(
+        """
+        <h1 style="
+            font-family: 'Press Start 2P', cursive;
+            font-size: 70px;
+            color: white;
+            text-align: center;
+            text-shadow: 4px 4px 0px #000000, 8px 8px 0px rgba(0,0,0,0.2);
+            margin-top: 50px;">
+        UJI BRIX PADA PANGAN
+        </h1>
+        """,
+        unsafe_allow_html=True
+    )
 
-    # Tombol Minecraft-style
     if st.button("▶️ Memulai Perhitungan", key="memulai"):
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
         st.session_state.page = "perhitungan"
@@ -92,9 +96,7 @@ def show_menu():
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
         st.session_state.page = "opsi"
 
-# Fungsi halaman selain menu
-
-# CSS halaman kedua (default grass block Minecraft)
+# CSS halaman selain menu utama
 if st.session_state.page != "menu":
     st.markdown(f"""
         <style>
@@ -122,6 +124,7 @@ if st.session_state.page != "menu":
         </style>
     """, unsafe_allow_html=True)
 
+# Halaman Perhitungan
 def show_perhitungan():
     back_button()
     st.header("🔎 Perhitungan Brix")
@@ -147,6 +150,7 @@ def show_perhitungan():
             kualitas = "Tinggi (madu, sirup, dll)"
         st.info(f"Kategori Kadar Gula: {kualitas}")
 
+# Halaman Rumus
 def show_rumus():
     back_button()
     st.header("📜 Rumus Perhitungan Brix")
@@ -159,11 +163,13 @@ def show_rumus():
     - Faktor Koreksi: 0.03 °Bx/°C
     """)
 
+# Halaman Alat
 def show_alat():
     back_button()
     st.header("🔬 Alat Hand Refraktometer")
     st.image("/mnt/data/b44f73b2-5a59-42cb-90f6-978d0868e67e.png", caption="Refraktometer Brix", use_column_width=True)
 
+# Halaman Opsi
 def show_opsi():
     back_button()
     st.header("⚙️ Ganti Warna Background")
@@ -172,7 +178,7 @@ def show_opsi():
     st.session_state.background_color = warna[pilihan]
     st.success(f"Warna latar diganti menjadi: {pilihan}")
 
-# Navigasi halaman
+# Navigasi Halaman
 if st.session_state.page == "menu":
     show_menu()
 elif st.session_state.page == "perhitungan":
