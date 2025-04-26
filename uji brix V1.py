@@ -10,17 +10,10 @@ if "background_color" not in st.session_state:
     st.session_state.background_color = "#1e1e1e"
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
+if "play_music" not in st.session_state:
+    st.session_state.play_music = True
 
-# Fungsi musik
-def play_music():
-    if st.session_state.page == "menu":
-        st.markdown("""
-            <audio autoplay loop>
-                <source src="https://vgmsite.com/soundtracks/minecraft-complete-soundtrack/ffdzlrbw/1-01%20Minecraft%20-%20Sweden.mp3" type="audio/mpeg">
-            </audio>
-            """, unsafe_allow_html=True)
-
-# Fungsi loading dengan overlay ala Minecraft
+# Fungsi loading dengan overlay Minecraft-style
 def loading(text="sedang proses sahabat"):
     loading_html = f"""
     <div style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:black; z-index:9999; display:flex; justify-content:center; align-items:center;">
@@ -34,12 +27,28 @@ def loading(text="sedang proses sahabat"):
     time.sleep(1.5)
 
 # Fungsi tombol kembali
-
 def back_button():
     if st.button("🏠 Kembali ke Menu"):
         st.session_state.page = "menu"
 
-# Background dinamis per halaman
+# Fungsi musik
+def embed_music():
+    if st.session_state.play_music and st.session_state.page in ["menu", "perhitungan"]:
+        st.markdown("""
+        <iframe width="0" height="0" scrolling="no" frameborder="no" allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/36529168&color=%23333333&inverse=false&auto_play=true&show_user=false">
+        </iframe>
+        """, unsafe_allow_html=True)
+
+# Fungsi logo musik toggle
+def music_toggle_icon():
+    icon = "🔊" if st.session_state.play_music else "🔇"
+    col = st.columns([0.9, 0.1])[1]
+    with col:
+        if st.button(icon, key="music_toggle"):
+            st.session_state.play_music = not st.session_state.play_music
+
+# Background dinamis
 def get_background_url():
     if st.session_state.page == "perhitungan":
         return "https://e0.pxfuel.com/wallpapers/891/197/desktop-wallpaper-minecraft-backround-minecraft-scenery.jpg"
@@ -67,10 +76,10 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
-# Menu utama
-
+# MENU
 def show_menu():
-    play_music()
+    embed_music()
+    music_toggle_icon()
     st.markdown("""
     <h1 style="
         font-family: 'Press Start 2P', cursive;
@@ -92,9 +101,10 @@ def show_menu():
     if st.button("⚙️ Opsi Warna"):
         st.session_state.page = "opsi"
 
-# Halaman perhitungan
-
+# PERHITUNGAN
 def show_perhitungan():
+    embed_music()
+    music_toggle_icon()
     back_button()
     st.header("🔎 Perhitungan Brix")
     with st.sidebar:
@@ -106,57 +116,38 @@ def show_perhitungan():
         st.markdown("""<style>body, .stApp { background-color: #1e1e1e; color: white; }</style>""", unsafe_allow_html=True)
 
     if st.button("Hitung Koreksi Brix"):
-        suhu_referensi = 20.0
-        koreksi_per_derajat = 0.03
-        selisih = suhu - suhu_referensi
-        hasil = brix_awal + (selisih * koreksi_per_derajat)
+        suhu_ref = 20.0
+        koreksi = 0.03
+        selisih = suhu - suhu_ref
+        hasil = brix_awal + (selisih * koreksi)
 
         st.success(f"Hasil Koreksi: {hasil:.2f} °Bx")
-
         st.markdown(f"""
         ### 📘 Langkah Perhitungan:
         - Rumus: Brix Terkoreksi = Brix Awal + ((Suhu - 20) × 0.03)
         - Brix Awal = {brix_awal} °Bx
         - Suhu = {suhu} °C
-        - Selisih = {selisih} °C
-        - Koreksi = {selisih:.2f} × 0.03 = {selisih * koreksi_per_derajat:.2f} °Bx
-        - Brix Akhir = {brix_awal:.2f} + {selisih * koreksi_per_derajat:.2f} = {hasil:.2f} °Bx
+        - Koreksi = {selisih:.2f} × 0.03 = {selisih * koreksi:.2f} °Bx
+        - Hasil = {brix_awal:.2f} + {selisih * koreksi:.2f} = {hasil:.2f} °Bx
 
         📖 **Penjelasan Ilmiah:**
-        Koreksi suhu pada pengukuran Brix penting karena indeks bias larutan dipengaruhi oleh suhu. Menurut *Jurnal Kimia Terapan Indonesia*, setiap kenaikan suhu 1°C dapat menurunkan indeks bias, sehingga hasil pengukuran perlu dikoreksi untuk mendapat nilai aktual. Koreksi ini umum digunakan dalam industri pangan seperti jus buah, madu, dan sirup.
+        Menurut *Jurnal Kimia Terapan Indonesia*, koreksi suhu pada pengukuran Brix penting karena indeks bias larutan dipengaruhi oleh suhu. Koreksi digunakan untuk hasil akurat pada jus, madu, dll.
         """)
 
-        hasil_txt = f"""Hasil Koreksi Brix
-Brix Awal: {brix_awal} °Bx
-Suhu: {suhu} °C
-Brix Akhir: {hasil:.2f} °Bx
-"""
-        now = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"hasil_brix_{now}.txt"
-        st.download_button(label="💾 Simpan Hasil", data=hasil_txt, file_name=filename)
-
-        if hasil < 10:
-            st.info("Kategori: Rendah (buah belum matang)")
-        elif 10 <= hasil <= 15:
-            st.info("Kategori: Sedang (standar buah segar)")
-        else:
-            st.info("Kategori: Tinggi (madu/sirup)")
-
-# Halaman lainnya
-
+# RUMUS
 def show_rumus():
     back_button()
     st.header("📜 Rumus Perhitungan Brix")
-    st.write("""
-    Brix Terkoreksi = Brix Awal + ((Suhu - Suhu Referensi) × Faktor Koreksi)
-    Suhu Referensi = 20°C, Faktor Koreksi = 0.03 °Bx/°C
-    """)
+    st.write("""Brix Terkoreksi = Brix Awal + ((Suhu - Suhu Referensi) × Faktor Koreksi)
+Suhu Referensi = 20°C, Faktor Koreksi = 0.03 °Bx/°C""")
 
+# ALAT
 def show_alat():
     back_button()
     st.header("🔬 Alat Hand Refraktometer")
-    st.image("/mnt/data/b44f73b2-5a59-42cb-90f6-978d0868e67e.png", caption="Refraktometer Brix", use_column_width=True)
+    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Refractometer.png/640px-Refractometer.png", caption="Refraktometer Brix", use_column_width=True)
 
+# OPSI
 def show_opsi():
     back_button()
     st.header("⚙️ Ganti Warna Background")
@@ -165,7 +156,7 @@ def show_opsi():
     st.session_state.background_color = warna[pilihan]
     st.success(f"Warna latar diganti menjadi: {pilihan}")
 
-# Routing halaman
+# Routing
 if st.session_state.page == "menu":
     show_menu()
 elif st.session_state.page == "perhitungan":
