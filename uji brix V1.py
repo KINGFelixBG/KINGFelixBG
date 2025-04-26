@@ -28,7 +28,7 @@ with st.expander("🔬 Lihat Alat Uji Brix (Model 3D)"):
         allow="autoplay; fullscreen; xr-spatial-tracking"
         xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share
         width="100%" height="480"
-        src="https://sketchfab.com/models/626c229f0c15468ea62a397f813fbd60/embed">
+        src="https://sketchfab.com/models/088cabeea051427d9b1a64b4c0a04960/embed">
         </iframe>
         ''',
         height=500,
