@@ -1,5 +1,7 @@
-# Minecraft-themed Uji Brix Adventure - Enhanced with Minecraft Nuance & Symbols
 import streamlit as st
+
+# Link GIF animasi Steve Minecraft yang Anda berikan
+link_steve_gif = "https://media4.giphy.com/media/OUUnxL2NbwNuX16EfK/giphy.gif?cid=6c09b952woyzjs8sgsv2fjy3nl229cu65fl6ilj6l1dl4my7&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g"
 
 # Simbol-simbol Minecraft
 MINECRAFT_PICKAXE = "⛏️"
@@ -48,10 +50,9 @@ if page == f"{MINECRAFT_DIAMOND} Beranda":
     st.markdown(f'<div class="title">{MINECRAFT_PICKAXE} Uji Brix Adventure {MINECRAFT_CREEPER}</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="subtitle">{MINECRAFT_APPLE} Bersama Ilmuwan Kecil & Creeper Buah! {MINECRAFT_APPLE}</div>', unsafe_allow_html=True)
 
-    # Gambar Minecraftian
-    # Link stiker langsung ke gambar
-    link_stiker = "https://i.ibb.co/987t0F9/minecraft-scientist-strawberry.png"
-    st.image(link_stiker, caption="Minecraft Scientist Strawberry", use_column_width=True)
+    # Tampilkan animasi GIF Steve Minecraft
+    st.image(link_steve_gif, caption="Steve Minecraft Animasi", use_column_width=True)
+
     st.markdown("---")
 
     st.info(f"{MINECRAFT_GOLD} Gunakan menu navigasi di sebelah kiri untuk memulai petualangan Uji Brix di dunia Minecraft! {MINECRAFT_PICKAXE}")
@@ -71,7 +72,7 @@ elif page == f"{MINECRAFT_PICKAXE} Uji Brix":
     # Input parameter
     st.header(f"{MINECRAFT_BLOCK} Masukkan Parameter Uji")
 
-    st.image("https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg", width=100)
+    st.image(link_steve_gif, caption="Steve Minecraft Animasi", use_column_width=True)
 
     # Input nilai Brix awal dan suhu pengukuran
     brix_awal = st.number_input(f"{MINECRAFT_DIAMOND} Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
