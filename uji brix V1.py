@@ -18,6 +18,7 @@ st.markdown(f"""
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     html, body, [class*="css"] {{
         font-family: 'Press Start 2P', cursive;
+        background-color: {st.session_state['background_color']};
         background-image: url('https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8d/Grass_Block_JE4_BE3.png');
         background-size: cover;
         color: white;
@@ -34,12 +35,6 @@ st.markdown(f"""
     .stButton>button:hover {{
         background-color: #3e3e3e;
         border-color: #00cc00;
-    }}
-    .back-button {{
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 999;
     }}
     </style>
 """, unsafe_allow_html=True)
@@ -60,17 +55,10 @@ def loading(text="Loading..."):
     with st.spinner(text):
         time.sleep(2)
 
-# Fungsi tombol kembali global
+# Fungsi tombol kembali
 
 def back_button():
-    st.markdown("""
-    <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-        <form action="" method="post">
-            <button onclick="playClick()" name="back" style="background-color:#5a5a5a; border:2px solid #00ff00; padding:10px; font-family:'Press Start 2P'; color:white;">🏠</button>
-        </form>
-    </div>
-    """, unsafe_allow_html=True)
-    if st.session_state.get("back"):
+    if st.button("🏠 Kembali ke Menu"):
         st.session_state.page = "menu"
 
 # Fungsi menu utama
@@ -108,18 +96,32 @@ def show_perhitungan():
         st.markdown("""<style>body, .stApp { background-color: #1e1e1e; color: white; }</style>""", unsafe_allow_html=True)
 
     if st.button("Hitung Koreksi Brix"):
-        selisih = suhu - 20
-        hasil = brix_awal + (selisih * 0.03)
-        st.success(f"Brix Terkoreksi: {hasil:.2f} °Bx")
+        suhu_referensi = 20.0
+        koreksi_per_derajat = 0.03
+        selisih = suhu - suhu_referensi
+        hasil = brix_awal + (selisih * koreksi_per_derajat)
+        st.success(f"Hasil Koreksi: {hasil:.2f} °Bx")
+        if hasil < 10:
+            kualitas = "Rendah (buah belum matang)"
+        elif 10 <= hasil <= 15:
+            kualitas = "Sedang (standar buah segar)"
+        else:
+            kualitas = "Tinggi (madu, sirup, dll)"
+        st.info(f"Kategori Kadar Gula: {kualitas}")
 
 # Halaman Rumus
 
 def show_rumus():
     back_button()
     st.header("📜 Rumus Perhitungan Brix")
-    st.write("**Brix Terkoreksi = Brix Awal + ((Suhu Pengukuran - 20) × 0.03)**  \n"
-             "- Suhu Referensi: 20°C  \n"
-             "- Faktor Koreksi: 0.03 °Bx per °C")
+    st.write("""
+    Rumus koreksi suhu:
+
+    **Brix Terkoreksi = Brix Awal + ((Suhu Pengukuran - Suhu Referensi) × Faktor Koreksi)**
+
+    - Suhu Referensi: 20°C
+    - Faktor Koreksi: 0.03 °Bx/°C
+    """)
 
 # Halaman Alat
 
@@ -133,9 +135,10 @@ def show_alat():
 def show_opsi():
     back_button()
     st.header("⚙️ Ganti Warna Background")
-    pilihan = st.radio("Pilih warna:", ["Merah", "Kuning", "Hijau", "Biru"])
+    pilihan = st.radio("Pilih warna:", ["Merah", "Kuning", "Hijau", "Biru"], horizontal=True)
     warna = {"Merah": "#ff4c4c", "Kuning": "#ffeb3b", "Hijau": "#4caf50", "Biru": "#2196f3"}
     st.session_state.background_color = warna[pilihan]
+    st.success(f"Warna latar diganti menjadi: {pilihan}")
 
 # Fungsi untuk switch halaman
 
@@ -157,5 +160,3 @@ elif st.session_state.page == "alat":
     show_alat()
 elif st.session_state.page == "opsi":
     show_opsi()
-```
-}
