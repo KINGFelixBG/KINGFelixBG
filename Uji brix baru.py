@@ -3,6 +3,9 @@ import streamlit as st
 # Link GIF animasi Steve Minecraft yang Anda berikan
 link_steve_gif = "https://media4.giphy.com/media/OUUnxL2NbwNuX16EfK/giphy.gif?cid=6c09b952woyzjs8sgsv2fjy3nl229cu65fl6ilj6l1dl4my7&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g"
 
+# Link stiker langsung ke gambar
+link_stiker = "https://i.ibb.co/987t0F9/minecraft-scientist-strawberry.png"
+
 # Simbol-simbol Minecraft
 MINECRAFT_PICKAXE = "⛏️"
 MINECRAFT_APPLE = "🍏"
@@ -52,7 +55,7 @@ if page == f"{MINECRAFT_DIAMOND} Beranda":
 
     # Tampilkan animasi GIF Steve Minecraft
     st.image(link_steve_gif, caption="Steve si maniz", use_container_width=True)
-
+    st.image(link_stiker, caption="Minecraft Scientist Strawberry", use_container_width=True)
     st.markdown("---")
 
     st.info(f"{MINECRAFT_GOLD} Gunakan menu navigasi di sebelah kiri untuk memulai petualangan Uji Brix di dunia Minecraft! {MINECRAFT_PICKAXE}")
