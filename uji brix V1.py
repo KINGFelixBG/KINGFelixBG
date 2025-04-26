@@ -12,6 +12,8 @@ if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 if "play_music" not in st.session_state:
     st.session_state.play_music = True
+if "font_choice" not in st.session_state:
+    st.session_state.font_choice = "Times New Roman"
 
 # Fungsi loading native Streamlit spinner
 def loading(text="sedang proses sahabat"):
@@ -32,10 +34,10 @@ def embed_music():
         </iframe>
         """, unsafe_allow_html=True)
 
-# Fungsi logo musik toggle
+# Fungsi logo musik toggle kecil
 def music_toggle_icon():
     icon = "🔊" if st.session_state.play_music else "🔇"
-    col = st.columns([0.9, 0.1])[1]
+    col = st.columns([0.95, 0.05])[1]
     with col:
         if st.button(icon, key="music_toggle"):
             st.session_state.play_music = not st.session_state.play_music
@@ -45,7 +47,7 @@ def get_background_url():
     if st.session_state.page == "perhitungan":
         return "https://e0.pxfuel.com/wallpapers/891/197/desktop-wallpaper-minecraft-backround-minecraft-scenery.jpg"
     elif st.session_state.page == "rumus":
-        return "https://img.freepik.com/free-photo/open-book-library-with-copy-space_1150-8687.jpg"
+        return "https://c4.wallpaperflare.com/wallpaper/446/712/946/minecraft-bookshelves-hd-wallpaper-preview.jpg"
     elif st.session_state.page == "alat":
         return "https://img.freepik.com/free-photo/close-up-scientific-equipment-laboratory_23-2148916225.jpg"
     elif st.session_state.page == "opsi":
@@ -57,10 +59,13 @@ def get_background_url():
 bg_url = get_background_url()
 st.markdown(f"""
     <style>
-    .stApp {{
-        animation: fadeIn 1s;
+    html, body, [class*="css"] {{
+        font-family: {st.session_state.font_choice}, sans-serif;
         background: url('{bg_url}') no-repeat center center fixed;
         background-size: cover;
+    }}
+    .stApp {{
+        animation: fadeIn 1s;
     }}
     .block-container {{ background-color: rgba(0, 0, 0, 0.0); }}
     @keyframes fadeIn {{ 0% {{opacity: 0;}} 100% {{opacity: 1;}} }}
@@ -108,7 +113,7 @@ def show_menu():
         st.session_state.page = "rumus"
     if st.button("🔬 Alat Hand Refraktometer"):
         st.session_state.page = "alat"
-    if st.button("⚙️ Opsi Warna"):
+    if st.button("⚙️ Opsi Font"):
         st.session_state.page = "opsi"
 
 # PERHITUNGAN
@@ -160,11 +165,10 @@ def show_alat():
 # OPSI
 def show_opsi():
     back_button()
-    st.header("⚙️ Ganti Warna Background")
-    pilihan = st.radio("Pilih warna:", ["Merah", "Kuning", "Hijau", "Biru"], horizontal=False)
-    warna = {"Merah": "#ff4c4c", "Kuning": "#ffeb3b", "Hijau": "#4caf50", "Biru": "#2196f3"}
-    st.session_state.background_color = warna[pilihan]
-    st.success(f"Warna latar diganti menjadi: {pilihan}")
+    st.header("⚙️ Pilih Font Aplikasi")
+    pilihan = st.radio("Pilih font tampilan:", ["Times New Roman", "Arial"], horizontal=True)
+    st.session_state.font_choice = pilihan
+    st.success(f"Font diubah menjadi: {pilihan}")
 
 # Routing
 if st.session_state.page == "menu":
