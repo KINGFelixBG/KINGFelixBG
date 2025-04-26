@@ -41,6 +41,7 @@ def show_menu():
         .stApp {
             background: url('https://i.pinimg.com/736x/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg') no-repeat center center fixed;
             background-size: cover;
+            overflow: auto;
         }
         .block-container {
             background-color: rgba(0, 0, 0, 0.0);
@@ -107,6 +108,7 @@ if st.session_state.page != "menu":
             background-image: url('https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8d/Grass_Block_JE4_BE3.png');
             background-size: cover;
             color: white;
+            overflow: auto;
         }}
         .stButton>button {{
             background-color: #5a5a5a;
@@ -141,7 +143,24 @@ def show_perhitungan():
         koreksi_per_derajat = 0.03
         selisih = suhu - suhu_referensi
         hasil = brix_awal + (selisih * koreksi_per_derajat)
+
         st.success(f"Hasil Koreksi: {hasil:.2f} °Bx")
+        st.markdown("""
+        ### 📘 Langkah Perhitungan:
+        
+        **Rumus:**
+        > Brix Terkoreksi = Brix Awal + ((Suhu Pengukuran - 20) × 0.03)
+        
+        **Langkah:**
+        - Brix Awal: {:.2f} °Bx
+        - Suhu Pengukuran: {:.2f} °C
+        - Selisih suhu: {:.2f} °C
+        - Koreksi: {:.2f} × 0.03 = {:.2f} °Bx
+        - Hasil Akhir: {:.2f} + {:.2f} = {:.2f} °Bx
+        """.format(
+            brix_awal, suhu, selisih, selisih, selisih * koreksi_per_derajat, brix_awal, selisih * koreksi_per_derajat, hasil
+        ))
+
         if hasil < 10:
             kualitas = "Rendah (buah belum matang)"
         elif 10 <= hasil <= 15:
@@ -173,7 +192,7 @@ def show_alat():
 def show_opsi():
     back_button()
     st.header("⚙️ Ganti Warna Background")
-    pilihan = st.radio("Pilih warna:", ["Merah", "Kuning", "Hijau", "Biru"], horizontal=True)
+    pilihan = st.radio("Pilih warna:", ["Merah", "Kuning", "Hijau", "Biru"], horizontal=False)
     warna = {"Merah": "#ff4c4c", "Kuning": "#ffeb3b", "Hijau": "#4caf50", "Biru": "#2196f3"}
     st.session_state.background_color = warna[pilihan]
     st.success(f"Warna latar diganti menjadi: {pilihan}")
