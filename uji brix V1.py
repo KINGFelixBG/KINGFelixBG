@@ -1,31 +1,16 @@
+# Backup version - NO streamlit-autorefresh needed
 import streamlit as st
-from streamlit_autorefresh import st_autorefresh
 
+# Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix Adventure", layout="centered")
 
+# Sidebar Navigasi
 st.sidebar.title("Navigasi")
 page = st.sidebar.selectbox("Pilih Halaman", ["Beranda", "Uji Brix"])
 
+# Halaman Beranda
 if page == "Beranda":
-    # Setup refresh otomatis tiap 3 detik
-    count = st_autorefresh(interval=3000, limit=None, key="slide_refresh")
-
-    # Daftar gambar karakter
-    images = [
-        {
-            "url": "https://i.ibb.co/QdJ6KHZ/pixel-scientist.png",
-            "caption": "Ilmuwan Kecil - Si Peneliti Brix"
-        },
-        {
-            "url": "https://i.ibb.co/whR1Zn7/pixel-fruit-man.png",
-            "caption": "Orang Buah - Sang Pembawa Manis"
-        }
-    ]
-
-    # Pilih gambar sesuai counter
-    current_image = images[count % len(images)]
-
-    # CSS untuk styling
+    # Custom CSS
     st.markdown(
         """
         <style>
@@ -45,17 +30,22 @@ if page == "Beranda":
         unsafe_allow_html=True
     )
 
-    # Tampilan Title dan Subtitle
+    # Title
     st.markdown('<div class="title">Uji Brix Adventure</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Petualangan Dimulai!</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Bersama Ilmuwan Kecil dan Orang Buah!</div>', unsafe_allow_html=True)
 
-    # Gambar pixel karakter
-    st.image(current_image["url"], caption=current_image["caption"], use_column_width=True)
+    # Dua gambar tampil berdampingan
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.image("https://i.ibb.co/QdJ6KHZ/pixel-scientist.png", caption="Ilmuwan Kecil - Peneliti Brix", use_column_width=True)
+
+    with col2:
+        st.image("https://i.ibb.co/whR1Zn7/pixel-fruit-man.png", caption="Orang Buah - Pembawa Manis", use_column_width=True)
 
     st.markdown("---")
 
-    # Tombol mulai (redirect ke Uji Brix manual pakai sidebar)
-    st.info("Gunakan navigasi di sebelah kiri untuk memulai Uji Brix!")
+    st.info("Gunakan menu navigasi di sebelah kiri untuk memulai Uji Brix!")
 
     st.markdown("---")
     st.caption("Made with ❤️ in Streamlit Pixel Retro Adventure")
@@ -68,7 +58,7 @@ elif page == "Uji Brix":
     Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, dengan koreksi suhu.
     """)
 
-    # Sidebar Input
+    # Input parameter
     st.header("Masukkan Parameter Uji")
 
     brix_awal = st.number_input("Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
@@ -91,10 +81,5 @@ elif page == "Uji Brix":
         elif 10 <= brix_terkoreksi <= 15:
             kualitas = "Sedang (standar industri untuk buah segar)"
         else:
-            kualitas = "Tinggi (madu, sirup, atau buah sangat manis)"
-
-        st.info(f"Kategori Kadar Gula: {kualitas}")
-
-    st.markdown("---")
-    st.caption("📘 Dibuat dengan Streamlit untuk edukasi uji Brix pada pangan.")
-    
+            kualitas = "Tinggi (madu,
+            
