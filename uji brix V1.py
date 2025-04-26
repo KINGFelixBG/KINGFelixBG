@@ -77,9 +77,9 @@ elif page == "Uji Brix":
 
         # Penilaian kualitas bahan pangan
         if brix_terkoreksi < 10:
-            kualitas = "Rendah (contoh: buah belum matang)"
-        elif 10 <= brix_terkoreksi <= 15:
-            kualitas = "Sedang (standar industri untuk buah segar)"
-        else:
-            kualitas = "Tinggi (madu,
+    kualitas = "Rendah (contoh: buah belum matang)"
+elif 10 <= brix_terkoreksi <= 15:
+    kualitas = "Sedang (standar industri untuk buah segar)"
+else:
+    kualitas = "Tinggi (madu, sirup, atau buah sangat manis)"
             
