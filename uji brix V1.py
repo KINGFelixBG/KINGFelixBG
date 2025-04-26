@@ -53,7 +53,7 @@ function playClick() {
 
 def loading(text="Loading..."):
     with st.spinner(text):
-        time.sleep(2)
+        time.sleep(1)
 
 # Fungsi tombol kembali
 
@@ -68,19 +68,19 @@ def show_menu():
 
     if st.button("▶️ Memulai Perhitungan"):
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
-        switch_page("perhitungan")
+        st.session_state.page = "perhitungan"
 
     if st.button("📜 Rumus-rumus Brix"):
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
-        switch_page("rumus")
+        st.session_state.page = "rumus"
 
     if st.button("🔬 Alat Hand Refraktometer"):
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
-        switch_page("alat")
+        st.session_state.page = "alat"
 
     if st.button("⚙️ Opsi Warna"):
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
-        switch_page("opsi")
+        st.session_state.page = "opsi"
 
 # Halaman Perhitungan
 
@@ -140,23 +140,18 @@ def show_opsi():
     st.session_state.background_color = warna[pilihan]
     st.success(f"Warna latar diganti menjadi: {pilihan}")
 
-# Fungsi untuk switch halaman
-
-def switch_page(next_page):
-    st.session_state.page = "loading"
-    st.session_state.next_page = next_page
-
-# Kontrol navigasi halaman
+# Navigasi halaman
 if st.session_state.page == "menu":
     show_menu()
-elif st.session_state.page == "loading":
-    loading("Memuat...")
-    st.session_state.page = st.session_state.next_page
 elif st.session_state.page == "perhitungan":
+    loading("Memuat Perhitungan...")
     show_perhitungan()
 elif st.session_state.page == "rumus":
+    loading("Memuat Rumus...")
     show_rumus()
 elif st.session_state.page == "alat":
+    loading("Memuat Alat...")
     show_alat()
 elif st.session_state.page == "opsi":
+    loading("Memuat Opsi...")
     show_opsi()
