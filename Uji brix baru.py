@@ -42,10 +42,10 @@ if page == "Beranda":
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image("https://i.ibb.co/QdJ6KHZ/pixel-scientist.png", caption="Steve - Peneliti Brix", use_container_width=True)
+        st.image("https://i.ibb.co/QdJ6KHZ/pixel-scientist.png", caption="Steve - Peneliti Brix", use_column_width=True)
 
     with col2:
-        st.image("https://i.ibb.co/whR1Zn7/pixel-fruit-man.png", caption="Creeper Buah - Pembawa Manis", use_container_width=True)
+        st.image("https://i.ibb.co/whR1Zn7/pixel-fruit-man.png", caption="Creeper Buah - Pembawa Manis", use_column_width=True)
 
     st.markdown("---")
 
@@ -59,7 +59,7 @@ elif page == "Uji Brix":
     st.title("🧪 Uji Brix pada Bahan Pangan")
 
     st.write("""
-    Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, 
+    Selamat datang di dunia Minecraft! Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, 
     dengan koreksi suhu. Cobalah uji kadar gula pada madu Creeper atau buah Blokmanis!
     """)
 
@@ -75,6 +75,7 @@ elif page == "Uji Brix":
         suhu_referensi = 20.0
         koreksi_per_derajat = 0.03
 
+        # Perhitungan
         selisih_suhu = suhu - suhu_referensi
         koreksi = selisih_suhu * koreksi_per_derajat
         brix_terkoreksi = brix_awal + koreksi
@@ -91,3 +92,45 @@ elif page == "Uji Brix":
             kualitas = "🍯 Tinggi (madu, sirup, atau buah sangat manis)"
 
         st.info(f"🌟 Kategori Kadar Gula: {kualitas}")
+
+        # Penjelasan lengkap
+        st.markdown("""
+        ### Penjelasan Perhitungan:
+        - **Nilai Brix Awal**: Nilai awal yang diukur menggunakan refraktometer.
+        - **Suhu Pengukuran**: Suhu larutan saat pengukuran.
+        - **Suhu Referensi**: Suhu standar pengukuran refraktometer (20°C).
+        - **Koreksi per Derajat Celsius**: Nilai koreksi sebesar 0.03 °Bx per derajat Celsius.
+
+        #### Langkah Perhitungan:
+        1. Hitung selisih suhu:
+           \[
+           \text{Selisih Suhu} = \text{Suhu Pengukuran} - \text{Suhu Referensi}
+           \]
+           Dalam kasus ini: 
+           \[
+           {suhu:.2f} - {suhu_referensi} = {selisih_suhu:.2f} \, \text{°C}
+           \]
+
+        2. Hitung koreksi Brix:
+           \[
+           \text{Koreksi} = \text{Selisih Suhu} \times \text{Koreksi per Derajat Celcius}
+           \]
+           Dalam kasus ini:
+           \[
+           {selisih_suhu:.2f} \times {koreksi_per_derajat} = {koreksi:.2f} \, \text{°Bx}
+           \]
+
+        3. Hitung Brix Terkoreksi:
+           \[
+           \text{Brix Terkoreksi} = \text{Brix Awal} + \text{Koreksi}
+           \]
+           Dalam kasus ini:
+           \[
+           {brix_awal:.2f} + {koreksi:.2f} = {brix_terkoreksi:.2f} \, \text{°Bx}
+           \]
+
+        #### Kategori Kadar Gula:
+        - **Rendah**: Jika nilai Brix terkoreksi < 10 (contoh: buah belum matang).
+        - **Sedang**: Jika nilai Brix terkoreksi berada antara 10 hingga 15 (standar industri untuk buah segar).
+        - **Tinggi**: Jika nilai Brix terkoreksi > 15 (contoh: madu, sirup, atau buah sangat manis).
+        """)
