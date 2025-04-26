@@ -133,6 +133,7 @@ if "bahasa" not in st.session_state:
     st.session_state["bahasa"] = "Indonesia"
 
 with st.sidebar:
+    # Hanya tampilkan pengaturan bahasa di sini, tanpa halaman pengaturan menu utama
     st.markdown(f"### {MINECRAFT_GEAR} Pengaturan / Settings")
     bahasa_pilihan = st.selectbox(
         "Pilih Bahasa / Choose Language",
@@ -143,7 +144,7 @@ with st.sidebar:
 
 teks = bahasa_dict[st.session_state["bahasa"]]
 
-# Sidebar Navigasi dengan simbol Minecraft
+# Sidebar Navigasi dengan simbol Minecraft (hilangkan opsi "Pengaturan")
 st.sidebar.title(f"{MINECRAFT_BLOCK} Navigasi")
 page = st.sidebar.selectbox(
     "Pilih Halaman / Select Menu",
@@ -151,8 +152,7 @@ page = st.sidebar.selectbox(
         f"{MINECRAFT_DIAMOND} {teks['nav'][0]}",
         f"{MINECRAFT_PICKAXE} {teks['nav'][1]}",
         f"{MINECRAFT_BOOK} {teks['nav'][2]}",
-        f"{MINECRAFT_TOOLS} {teks['nav'][3]}",
-        f"{MINECRAFT_GEAR} {teks['nav'][4]}"
+        f"{MINECRAFT_TOOLS} {teks['nav'][3]}"
     ]
 )
 
@@ -242,10 +242,3 @@ elif page == f"{MINECRAFT_TOOLS} {teks['nav'][3]}":
     st.markdown("####")
     for alat in teks["alat"]:
         st.markdown(f"- {alat}")
-
-# HALAMAN PENGATURAN
-elif page == f"{MINECRAFT_GEAR} {teks['nav'][4]}":
-    st.title(f"{MINECRAFT_GEAR} {teks['nav'][4]}")
-    st.markdown(f"#### {teks['pengaturan']}")
-    st.selectbox("Bahasa / Language", options=list(bahasa_dict.keys()), key="bahasa", index=list(bahasa_dict.keys()).index(st.session_state["bahasa"]))
-    st.info("Ubah bahasa pada menu ini akan langsung mengubah bahasa aplikasi seluruhnya.")
