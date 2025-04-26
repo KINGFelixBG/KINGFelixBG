@@ -1,37 +1,33 @@
-# Backup version - Minecraft-inspired homepage
+# Backup version - Minecraft-themed Uji Brix Adventure
 import streamlit as st
 
-# Configure page
-st.set_page_config(page_title="Minecraft Brix Adventure", layout="centered")
+# Konfigurasi halaman
+st.set_page_config(page_title="Uji Brix Adventure", layout="centered")
 
-# Sidebar Navigation
-st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Select Page", ["Home", "Uji Brix"])
+# Sidebar Navigasi
+st.sidebar.title("🌍 Navigasi Dunia Minecraft")
+page = st.sidebar.selectbox("Pilih Halaman", ["Beranda", "Uji Brix"])
 
-# Home Page
-if page == "Home":
-    # Custom CSS for Minecraft theme
+# Halaman Beranda
+if page == "Beranda":
+    # Custom CSS
     st.markdown(
         """
         <style>
         .title {
             font-size:50px;
-            color:#228B22;
+            color:#5e9c36; /* Warna khas Minecraft */
             text-align:center;
             font-weight:bold;
-            font-family: 'Courier New', Courier, monospace;
-            text-shadow: 2px 2px 4px #000000;
+            text-shadow: 2px 2px #3c6218; /* Efek bayangan */
         }
         .subtitle {
             font-size:22px;
             text-align:center;
-            color: #8B4513;
-            font-family: 'Courier New', Courier, monospace;
+            color: #8a8a8a;
         }
         body {
-            background-color: #87CEEB;
-            background-image: url('https://i.ibb.co/5kZtqJ3/minecraft-background.png');
-            background-size: cover;
+            background-color: #f3f4f6;
         }
         </style>
         """,
@@ -39,37 +35,43 @@ if page == "Home":
     )
 
     # Title
-    st.markdown('<div class="title">Minecraft Brix Adventure</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Explore the world of Brix with pixelated fun!</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title">Uji Brix Adventure</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Bersama Ilmuwan Kecil dan Orang Buah!</div>', unsafe_allow_html=True)
 
-    # Display pixelated images side by side
-    col1, col2, col3 = st.columns([1, 2, 1])
+    # Dua gambar tampil berdampingan
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.image("https://i.ibb.co/QdJ6KHZ/pixel-scientist.png", caption="Steve - Peneliti Brix", use_column_width=True)
 
     with col2:
-        st.image("https://i.ibb.co/5Lw09VJ/minecraft-character.png", caption="Pixel Scientist", use_column_width=True)
+        st.image("https://i.ibb.co/whR1Zn7/pixel-fruit-man.png", caption="Creeper Buah - Pembawa Manis", use_column_width=True)
 
     st.markdown("---")
 
-    st.info("Use the navigation menu on the left to start your Brix Adventure!")
+    st.info("Gunakan menu navigasi di sebelah kiri untuk memulai Uji Brix di dunia Minecraft!")
 
     st.markdown("---")
-    st.caption("Made with ❤️ in Streamlit Pixel Minecraft Adventure")
+    st.caption("Made with ❤️ in Minecraft Pixel Adventure")
 
-# Uji Brix Page
+# Halaman Uji Brix
 elif page == "Uji Brix":
-    st.title("🧪 Uji Brix - Minecraft Edition")
+    st.title("🧪 Uji Brix pada Bahan Pangan")
 
     st.write("""
-    This application helps calculate the Brix level of sugar solutions in food ingredients, with temperature correction.
+    Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, 
+    dengan koreksi suhu. Cobalah uji kadar gula pada madu Creeper atau buah Blokmanis!
     """)
 
-    # Input parameters
-    st.header("Enter Test Parameters (Minecraft Style)")
+    # Input parameter
+    st.header("⚒️ Masukkan Parameter Uji")
 
-    brix_awal = st.number_input("Enter Brix value from refractometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
-    suhu = st.number_input("Enter solution temperature during measurement (°C):", min_value=0.0, max_value=100.0, step=0.1)
+    st.image("https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg", width=100)
 
-    if st.button("Calculate Brix Correction"):
+    brix_awal = st.number_input("🧊 Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
+    suhu = st.number_input("🔥 Masukkan suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
+
+    if st.button("⛏️ Hitung Koreksi Brix"):
         suhu_referensi = 20.0
         koreksi_per_derajat = 0.03
 
@@ -77,15 +79,15 @@ elif page == "Uji Brix":
         koreksi = selisih_suhu * koreksi_per_derajat
         brix_terkoreksi = brix_awal + koreksi
 
-        st.success(f"Corrected Brix Value: {brix_terkoreksi:.2f} °Bx")
-        st.caption(f"Calculation: {brix_awal:.2f} + ({selisih_suhu:.2f} × {koreksi_per_derajat}) = {brix_terkoreksi:.2f} °Bx")
+        st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
+        st.caption(f"Perhitungan: {brix_awal:.2f} + ({selisih_suhu:.2f} × {koreksi_per_derajat}) = {brix_terkoreksi:.2f} °Bx")
 
-        # Quality assessment of food ingredients
+        # Penilaian kualitas bahan pangan
         if brix_terkoreksi < 10:
-            kualitas = "Low (e.g., unripe fruit)"
+            kualitas = "🌱 Rendah (contoh: buah belum matang)"
         elif 10 <= brix_terkoreksi <= 15:
-            kualitas = "Medium (industry standard for fresh fruit)"
+            kualitas = "🍎 Sedang (standar industri untuk buah segar)"
         else:
-            kualitas = "High (honey, syrup, or very sweet fruit)"
+            kualitas = "🍯 Tinggi (madu, sirup, atau buah sangat manis)"
 
-        st.info(f"Sugar Level Category: {kualitas}")
+        st.info(f"🌟 Kategori Kadar Gula: {kualitas}")
