@@ -1,6 +1,6 @@
 import streamlit as st
 
-# Link GIF animasi laboratory/kimiawi (bisa diganti jika punya GIF tema kimia)
+# Link GIF animasi laboratory/kimiawi
 link_lab_gif = "https://media.giphy.com/media/3orieQEA4hCz5Q3lYk/giphy.gif"
 
 # Simbol-simbol Kimiawi
@@ -127,7 +127,7 @@ bahasa_dict = {
     }
 }
 
-# Sidebar Pengaturan Bahasa (wajib diletakkan sebelum selectbox menu utama)
+# Sidebar Pengaturan Bahasa
 if "bahasa" not in st.session_state:
     st.session_state["bahasa"] = "Indonesia"
 
@@ -154,7 +154,7 @@ page = st.sidebar.selectbox(
     ]
 )
 
-# HALAMAN BERANDA
+# HALAMAN BERANDA (GIF hanya di halaman ini)
 if page == f"{CHEM_STAR} {teks['nav'][0]}":
     st.markdown(
         """
@@ -192,7 +192,7 @@ elif page == f"{CHEM_TESTTUBE} {teks['nav'][1]}":
     st.title(f"{CHEM_TESTTUBE} {teks['nav'][1]} {CHEM_FLASK}")
     st.write(teks["selamat_datang"])
     st.header(f"{CHEM_TOOLS} {teks['masukkan_param']}")
-    st.image(link_lab_gif, caption="Laboratorium Kimia Animasi", use_column_width=True)
+    # GIF TIDAK MUNCUL DI SINI
     brix_awal = st.number_input(f"{CHEM_MOLECULE} {teks['masukkan_brix']}", min_value=0.0, max_value=85.0, step=0.1)
     suhu = st.number_input(f"{CHEM_WARNING} {teks['masukkan_suhu']}", min_value=0.0, max_value=100.0, step=0.1)
     if st.button(f"{CHEM_FLASK} {teks['hitung']}"):
