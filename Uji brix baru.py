@@ -133,4 +133,4 @@ elif page == "Uji Brix":
         - **Rendah**: Jika nilai Brix terkoreksi < 10 (contoh: buah belum matang).
         - **Sedang**: Jika nilai Brix terkoreksi berada antara 10 hingga 15 (standar industri untuk buah segar).
         - **Tinggi**: Jika nilai Brix terkoreksi > 15 (contoh: madu, sirup, atau buah sangat manis).
-        """, unsafe_allow_html=True)
+        """)
