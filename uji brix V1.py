@@ -11,7 +11,7 @@ if "background_color" not in st.session_state:
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 
-# Audio Minecraft di menu utama
+# Fungsi musik
 def play_music():
     if st.session_state.page == "menu":
         st.markdown("""
@@ -20,17 +20,26 @@ def play_music():
             </audio>
             """, unsafe_allow_html=True)
 
-# Fungsi loading ringan
+# Fungsi loading dengan overlay ala Minecraft
 def loading(text="sedang proses sahabat"):
-    with st.spinner(text):
-        time.sleep(1)
+    loading_html = f"""
+    <div style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:black; z-index:9999; display:flex; justify-content:center; align-items:center;">
+        <h1 style='color:lime; font-family:monospace; font-size:40px;'>{text}</h1>
+    </div>
+    <script>
+    setTimeout(() => document.querySelector('div[style*="z-index:9999"]').remove(), 2000);
+    </script>
+    """
+    st.markdown(loading_html, unsafe_allow_html=True)
+    time.sleep(1.5)
 
-# Tombol kembali
+# Fungsi tombol kembali
+
 def back_button():
     if st.button("🏠 Kembali ke Menu"):
         st.session_state.page = "menu"
 
-# Fungsi background bergantung halaman
+# Background dinamis per halaman
 def get_background_url():
     if st.session_state.page == "perhitungan":
         return "https://e0.pxfuel.com/wallpapers/891/197/desktop-wallpaper-minecraft-backround-minecraft-scenery.jpg"
@@ -43,52 +52,36 @@ def get_background_url():
     else:
         return "https://i.pinimg.com/736x/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg"
 
-# Fungsi Menu Utama
-def show_menu():
-    st.markdown(f"""
+# CSS global
+bg_url = get_background_url()
+st.markdown(f"""
     <style>
     .stApp {{
-        animation: fadeIn 2s;
-        background: url('{get_background_url()}') no-repeat center center fixed;
+        animation: fadeIn 1s;
+        background: url('{bg_url}') no-repeat center center fixed;
         background-size: cover;
     }}
-    .block-container {{
-        background-color: rgba(0, 0, 0, 0.0);
-    }}
-    @keyframes fadeIn {{
-        0% {{opacity: 0;}}
-        100% {{opacity: 1;}}
-    }}
-    h1 {{
+    .block-container {{ background-color: rgba(0, 0, 0, 0.0); }}
+    @keyframes fadeIn {{ 0% {{opacity: 0;}} 100% {{opacity: 1;}} }}
+    h1 {{ font-family: 'Press Start 2P', cursive; color: white; text-shadow: 3px 3px 0 black; }}
+    </style>
+""", unsafe_allow_html=True)
+
+# Menu utama
+
+def show_menu():
+    play_music()
+    st.markdown("""
+    <h1 style="
         font-family: 'Press Start 2P', cursive;
         font-size: 70px;
         color: white;
         text-align: center;
         text-shadow: 4px 4px 0px #000000, 8px 8px 0px rgba(0,0,0,0.2);
-        margin-top: 50px;
-    }}
-    .stButton>button {{
-        font-family: 'Press Start 2P', cursive;
-        background-color: #5a5a5a;
-        border: 2px solid #00ff00;
-        padding: 15px 20px;
-        margin: 10px auto;
-        width: 300px;
-        font-size: 16px;
-        color: white;
-        text-align: center;
-        display: block;
-        transition: 0.3s;
-    }}
-    .stButton>button:hover {{
-        background-color: #3e3e3e;
-        border-color: #00cc00;
-    }}
-    </style>
+        margin-top: 50px;">
+    UJI BRIX PADA PANGAN
+    </h1>
     """, unsafe_allow_html=True)
-
-    play_music()
-    st.markdown("<h1>UJI BRIX PADA PANGAN</h1>", unsafe_allow_html=True)
 
     if st.button("▶️ Memulai Perhitungan"):
         st.session_state.page = "perhitungan"
@@ -99,7 +92,8 @@ def show_menu():
     if st.button("⚙️ Opsi Warna"):
         st.session_state.page = "opsi"
 
-# Fungsi Perhitungan
+# Halaman perhitungan
+
 def show_perhitungan():
     back_button()
     st.header("🔎 Perhitungan Brix")
@@ -127,6 +121,9 @@ def show_perhitungan():
         - Selisih = {selisih} °C
         - Koreksi = {selisih:.2f} × 0.03 = {selisih * koreksi_per_derajat:.2f} °Bx
         - Brix Akhir = {brix_awal:.2f} + {selisih * koreksi_per_derajat:.2f} = {hasil:.2f} °Bx
+
+        📖 **Penjelasan Ilmiah:**
+        Koreksi suhu pada pengukuran Brix penting karena indeks bias larutan dipengaruhi oleh suhu. Menurut *Jurnal Kimia Terapan Indonesia*, setiap kenaikan suhu 1°C dapat menurunkan indeks bias, sehingga hasil pengukuran perlu dikoreksi untuk mendapat nilai aktual. Koreksi ini umum digunakan dalam industri pangan seperti jus buah, madu, dan sirup.
         """)
 
         hasil_txt = f"""Hasil Koreksi Brix
@@ -146,11 +143,13 @@ Brix Akhir: {hasil:.2f} °Bx
             st.info("Kategori: Tinggi (madu/sirup)")
 
 # Halaman lainnya
+
 def show_rumus():
     back_button()
     st.header("📜 Rumus Perhitungan Brix")
     st.write("""
-    Brix Terkoreksi = Brix Awal + ((Suhu - 20) × 0.03)
+    Brix Terkoreksi = Brix Awal + ((Suhu - Suhu Referensi) × Faktor Koreksi)
+    Suhu Referensi = 20°C, Faktor Koreksi = 0.03 °Bx/°C
     """)
 
 def show_alat():
@@ -166,7 +165,7 @@ def show_opsi():
     st.session_state.background_color = warna[pilihan]
     st.success(f"Warna latar diganti menjadi: {pilihan}")
 
-# Routing
+# Routing halaman
 if st.session_state.page == "menu":
     show_menu()
 elif st.session_state.page == "perhitungan":
