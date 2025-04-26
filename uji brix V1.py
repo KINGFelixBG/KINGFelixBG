@@ -43,6 +43,7 @@ def get_background_url():
     else:
         return "https://i.pinimg.com/736x/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg"
 
+# Fungsi Menu Utama
 def show_menu():
     st.markdown(f"""
     <style>
@@ -98,6 +99,7 @@ def show_menu():
     if st.button("⚙️ Opsi Warna"):
         st.session_state.page = "opsi"
 
+# Fungsi Perhitungan
 def show_perhitungan():
     back_button()
     st.header("🔎 Perhitungan Brix")
@@ -127,22 +129,23 @@ def show_perhitungan():
         - Brix Akhir = {brix_awal:.2f} + {selisih * koreksi_per_derajat:.2f} = {hasil:.2f} °Bx
         """)
 
-        # Simpan hasil ke txt
-        hasil_txt = f\"\"\"Hasil Koreksi Brix
+        hasil_txt = f"""Hasil Koreksi Brix
 Brix Awal: {brix_awal} °Bx
 Suhu: {suhu} °C
 Brix Akhir: {hasil:.2f} °Bx
-\"\"\"
-        now = datetime.now().strftime(\"%Y%m%d_%H%M%S\")
-        filename = f\"hasil_brix_{now}.txt\"
-        st.download_button(label=\"💾 Simpan Hasil\", data=hasil_txt, file_name=filename)
+"""
+        now = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"hasil_brix_{now}.txt"
+        st.download_button(label="💾 Simpan Hasil", data=hasil_txt, file_name=filename)
 
         if hasil < 10:
-            st.info(\"Kategori: Rendah (buah belum matang)\")
+            st.info("Kategori: Rendah (buah belum matang)")
         elif 10 <= hasil <= 15:
-            st.info(\"Kategori: Sedang (standar buah segar)\")
+            st.info("Kategori: Sedang (standar buah segar)")
         else:
-            st.info(\"Kategori: Tinggi (madu/sirup)\")
+            st.info("Kategori: Tinggi (madu/sirup)")
+
+# Halaman lainnya
 def show_rumus():
     back_button()
     st.header("📜 Rumus Perhitungan Brix")
