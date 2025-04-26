@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulator Brix</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Kalkulator Brix</h1>
+    <form id="brixForm">
+      <label for="brix">Nilai Brix (°Bx):</label>
+      <input type="number" id="brix" name="brix" step="0.01" required>
+
+      <label for="volume">Volume Larutan (liter):</label>
+      <input type="number" id="volume" name="volume" step="0.01" required>
+
+      <label for="temperature">Suhu Sampel (°C):</label>
+      <input type="number" id="temperature" name="temperature" step="0.1" required>
+
+      <button type="submit">Hitung</button>
+    </form>
+    <div id="results"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  margin-top: 50px;
+  border-radius: 8px;
+}
+
+h1 {
+  text-align: center;
+}
+
+form label {
+  display: block;
+  margin-top: 10px;
+}
+
+form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+#results {
+  margin-top: 20px;
+}
+// script.js
+document.getElementById('brixForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const brix = parseFloat(document.getElementById('brix').value);
+  const volume = parseFloat(document.getElementById('volume').value);
+  const temperature = parseFloat(document.getElementById('temperature').value);
+
+  const gramsSugar = (brix / 100) * volume * 1000;
+  const sg = 1 + (brix / (258.6 - ((brix / 258.2) * 227.1)));
+  const refractiveIndex = 1.3330 + (brix * 0.0014);
+  const correctedBrix = brix + ((20 - temperature) * 0.06);
+  const abv = (brix - correctedBrix) * 0.59; // Estimasi sederhana
+
+  document.getElementById('results').innerHTML = `
+    <h2>Hasil Perhitungan:</h2>
+    <p><strong>Gram Gula:</strong> ${gramsSugar.toFixed(2)} g</p>
+    <p><strong>Specific Gravity (SG):</strong> ${sg.toFixed(5)}</p>
+    <p><strong>Refractive Index (nD):</strong> ${refractiveIndex.toFixed(5)}</p>
+    <p><strong>Nilai Brix Terkoreksi (20°C):</strong> ${correctedBrix.toFixed(2)} °Bx</p>
+    <p><strong>Estimasi ABV:</strong> ${abv.toFixed(2)}%</p>
+  `;
+});
+activity_main.xml
