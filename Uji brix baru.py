@@ -55,6 +55,7 @@ if page == f"{MINECRAFT_DIAMOND} Beranda":
 
     # Tampilkan animasi GIF Steve Minecraft
     st.image(link_steve_gif, caption="Steve si maniz", use_container_width=True)
+    
     st.image(link_stiker, caption="Minecraft Scientist Strawberry", use_container_width=True)
     st.markdown("---")
 
@@ -74,8 +75,6 @@ elif page == f"{MINECRAFT_PICKAXE} Uji Brix":
 
     # Input parameter
     st.header(f"{MINECRAFT_BLOCK} Masukkan Parameter Uji")
-
-    st.image(link_steve_gif, caption="Steve Minecraft Animasi", use_column_width=True)
 
     # Input nilai Brix awal dan suhu pengukuran
     brix_awal = st.number_input(f"{MINECRAFT_DIAMOND} Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
