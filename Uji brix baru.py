@@ -39,14 +39,14 @@ if page == "Beranda":
     st.markdown('<div class="subtitle">Bersama Ilmuwan Kecil dan Orang Buah!</div>', unsafe_allow_html=True)
 
     # Menampilkan gambar di slide awal
-    st.image("https://i.ibb.co/QdJ6KHZ/pixel-scientist.png", caption="Ilmuwan Kecil - Peneliti Brix","creeper buah-si maniz", use_container_width=True)
+    st.image("https://i.ibb.co/QdJ6KHZ/pixel-scientist.png", caption="Ilmuwan Kecil - Peneliti Brix","creeper buah-si maniz",use_container_width=True)
     
     st.markdown("---")
 
     st.info("Gunakan menu navigasi di sebelah kiri untuk memulai Uji Brix!")
 
     st.markdown("---")
-    st.caption("Made with ❤️ in Streamlit Pixel Retro Adventure")
+    st.caption("Made with kelompok 4 in Streamlit Pixel Retro Adventure")
 
 # Halaman Uji Brix
 elif page == "Uji Brix":
