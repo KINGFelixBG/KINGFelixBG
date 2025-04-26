@@ -94,7 +94,7 @@ elif page == "Uji Brix":
         st.info(f"🌟 Kategori Kadar Gula: {kualitas}")
 
         # Penjelasan lengkap
-        st.markdown("""
+        st.markdown(f"""
         ### Penjelasan Perhitungan:
         - **Nilai Brix Awal**: Nilai awal yang diukur menggunakan refraktometer.
         - **Suhu Pengukuran**: Suhu larutan saat pengukuran.
@@ -104,33 +104,33 @@ elif page == "Uji Brix":
         #### Langkah Perhitungan:
         1. Hitung selisih suhu:
            \[
-           \text{Selisih Suhu} = \text{Suhu Pengukuran} - \text{Suhu Referensi}
+           \\text{{Selisih Suhu}} = \\text{{Suhu Pengukuran}} - \\text{{Suhu Referensi}}
            \]
            Dalam kasus ini: 
            \[
-           {suhu:.2f} - {suhu_referensi} = {selisih_suhu:.2f} \, \text{°C}
+           {suhu:.2f} - {suhu_referensi} = {selisih_suhu:.2f} \, \\text{{°C}}
            \]
 
         2. Hitung koreksi Brix:
            \[
-           \text{Koreksi} = \text{Selisih Suhu} \times \text{Koreksi per Derajat Celcius}
+           \\text{{Koreksi}} = \\text{{Selisih Suhu}} \\times \\text{{Koreksi per Derajat Celcius}}
            \]
            Dalam kasus ini:
            \[
-           {selisih_suhu:.2f} \times {koreksi_per_derajat} = {koreksi:.2f} \, \text{°Bx}
+           {selisih_suhu:.2f} \\times {koreksi_per_derajat} = {koreksi:.2f} \, \\text{{°Bx}}
            \]
 
         3. Hitung Brix Terkoreksi:
            \[
-           \text{Brix Terkoreksi} = \text{Brix Awal} + \text{Koreksi}
+           \\text{{Brix Terkoreksi}} = \\text{{Brix Awal}} + \\text{{Koreksi}}
            \]
            Dalam kasus ini:
            \[
-           {brix_awal:.2f} + {koreksi:.2f} = {brix_terkoreksi:.2f} \, \text{°Bx}
+           {brix_awal:.2f} + {koreksi:.2f} = {brix_terkoreksi:.2f} \, \\text{{°Bx}}
            \]
 
         #### Kategori Kadar Gula:
         - **Rendah**: Jika nilai Brix terkoreksi < 10 (contoh: buah belum matang).
         - **Sedang**: Jika nilai Brix terkoreksi berada antara 10 hingga 15 (standar industri untuk buah segar).
         - **Tinggi**: Jika nilai Brix terkoreksi > 15 (contoh: madu, sirup, atau buah sangat manis).
-        """)
+        """, unsafe_allow_html=True)
