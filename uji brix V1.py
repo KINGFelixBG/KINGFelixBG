@@ -55,19 +55,26 @@ function playClick() {
 """, unsafe_allow_html=True)
 
 # Fungsi loading
+
 def loading(text="Loading..."):
     with st.spinner(text):
         time.sleep(2)
 
 # Fungsi tombol kembali global
+
 def back_button():
-    with st.container():
-        col = st.columns([0.1, 0.9])[0]
-        with col:
-            if st.button("🏠", key="back_menu"):
-                st.session_state.page = "menu"
+    st.markdown("""
+    <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
+        <form action="" method="post">
+            <button onclick="playClick()" name="back" style="background-color:#5a5a5a; border:2px solid #00ff00; padding:10px; font-family:'Press Start 2P'; color:white;">🏠</button>
+        </form>
+    </div>
+    """, unsafe_allow_html=True)
+    if st.session_state.get("back"):
+        st.session_state.page = "menu"
 
 # Fungsi menu utama
+
 def show_menu():
     st.title("🧪 Uji Brix Minecraft Style")
 
@@ -88,6 +95,7 @@ def show_menu():
         switch_page("opsi")
 
 # Halaman Perhitungan
+
 def show_perhitungan():
     back_button()
     st.header("🔎 Perhitungan Brix")
@@ -105,6 +113,7 @@ def show_perhitungan():
         st.success(f"Brix Terkoreksi: {hasil:.2f} °Bx")
 
 # Halaman Rumus
+
 def show_rumus():
     back_button()
     st.header("📜 Rumus Perhitungan Brix")
@@ -113,12 +122,14 @@ def show_rumus():
              "- Faktor Koreksi: 0.03 °Bx per °C")
 
 # Halaman Alat
+
 def show_alat():
     back_button()
     st.header("🔬 Alat Hand Refraktometer")
     st.image("/mnt/data/b44f73b2-5a59-42cb-90f6-978d0868e67e.png", caption="Refraktometer Brix", use_column_width=True)
 
 # Halaman Opsi Warna
+
 def show_opsi():
     back_button()
     st.header("⚙️ Ganti Warna Background")
@@ -127,6 +138,7 @@ def show_opsi():
     st.session_state.background_color = warna[pilihan]
 
 # Fungsi untuk switch halaman
+
 def switch_page(next_page):
     st.session_state.page = "loading"
     st.session_state.next_page = next_page
@@ -145,3 +157,5 @@ elif st.session_state.page == "alat":
     show_alat()
 elif st.session_state.page == "opsi":
     show_opsi()
+```
+}
