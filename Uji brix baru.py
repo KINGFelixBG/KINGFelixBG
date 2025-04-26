@@ -38,14 +38,8 @@ if page == "Beranda":
     st.markdown('<div class="title">Uji Brix Adventure</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Bersama Ilmuwan Kecil dan Orang Buah!</div>', unsafe_allow_html=True)
 
-    # Dua gambar tampil berdampingan
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.image("https://i.ibb.co/QdJ6KHZ/pixel-scientist.png", caption="Steve - Peneliti Brix", use_column_width=True)
-
-    with col2:
-        st.image("https://i.ibb.co/whR1Zn7/pixel-fruit-man.png", caption="Creeper Buah - Pembawa Manis", use_column_width=True)
+    # Menampilkan gambar baru di slide awal
+    st.image("https://i.ibb.co/6vmQ6Bd/minecraft-scientist-and-fruit.png", caption="Ilmuwan dan Creeper Buah Minecraft", use_column_width=True)
 
     st.markdown("---")
 
@@ -68,10 +62,12 @@ elif page == "Uji Brix":
 
     st.image("https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg", width=100)
 
+    # Input nilai Brix awal dan suhu pengukuran
     brix_awal = st.number_input("🧊 Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
     suhu = st.number_input("🔥 Masukkan suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
 
     if st.button("⛏️ Hitung Koreksi Brix"):
+        # Parameter tetap
         suhu_referensi = 20.0
         koreksi_per_derajat = 0.03
 
@@ -80,6 +76,7 @@ elif page == "Uji Brix":
         koreksi = selisih_suhu * koreksi_per_derajat
         brix_terkoreksi = brix_awal + koreksi
 
+        # Menampilkan hasil
         st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
         st.caption(f"Perhitungan: {brix_awal:.2f} + ({selisih_suhu:.2f} × {koreksi_per_derajat}) = {brix_terkoreksi:.2f} °Bx")
 
@@ -93,7 +90,7 @@ elif page == "Uji Brix":
 
         st.info(f"🌟 Kategori Kadar Gula: {kualitas}")
 
-        # Penjelasan lengkap
+        # Penjelasan lengkap langkah perhitungan
         st.markdown(f"""
         ### Penjelasan Perhitungan:
         - **Nilai Brix Awal**: Nilai awal yang diukur menggunakan refraktometer.
