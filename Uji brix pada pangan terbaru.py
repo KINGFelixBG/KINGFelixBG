@@ -50,7 +50,7 @@ if st.button("Hitung Koreksi Brix"):
         st.info(f"Kategori Kadar Gula: {kualitas}")
 
     with col2:
-        st.image("https://media.giphy.com/media/3o6Zt5eI3z3n1gk2kI/giphy.gif", caption="Yummy!",use_container_width=True)
+        st.image("gif_url, caption="Buah Terkait", caption="OMG!",use_container_width=True)
 
 st.markdown("---")
 st.caption("📘 Dibuat dengan Streamlit untuk edukasi uji Brix pada pangan.")
