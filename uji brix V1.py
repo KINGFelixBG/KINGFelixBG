@@ -39,8 +39,11 @@ def show_menu():
         """
         <style>
         .stApp {
-            background: url('/mnt/data/89857e2a-432d-4bb8-ac81-185c00dd3ddb.png') no-repeat center center fixed;
+            background: url('/mnt/data/d032dd20-159b-4606-ab50-b4375589e7d7.png') no-repeat center center fixed;
             background-size: cover;
+        }
+        .block-container {
+            background-color: rgba(0, 0, 0, 0.0);
         }
         h1 {
             font-family: 'Press Start 2P', cursive;
@@ -50,7 +53,7 @@ def show_menu():
             font-size: 50px;
             margin-top: 50px;
         }
-        .minecraft-button {
+        .stButton>button {
             font-family: 'Press Start 2P', cursive;
             background-color: #5a5a5a;
             border: 2px solid #00ff00;
@@ -63,7 +66,7 @@ def show_menu():
             display: block;
             transition: 0.3s;
         }
-        .minecraft-button:hover {
+        .stButton>button:hover {
             background-color: #3e3e3e;
             border-color: #00cc00;
         }
@@ -89,9 +92,9 @@ def show_menu():
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
         st.session_state.page = "opsi"
 
-# Fungsi halaman lain (Perhitungan, Rumus, Alat, Opsi)
+# Fungsi halaman selain menu
 
-# Global CSS selain menu utama
+# CSS halaman kedua (default grass block Minecraft)
 if st.session_state.page != "menu":
     st.markdown(f"""
         <style>
