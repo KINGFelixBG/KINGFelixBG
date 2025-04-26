@@ -51,7 +51,7 @@ if page == f"{MINECRAFT_DIAMOND} Beranda":
     st.markdown(f'<div class="subtitle">{MINECRAFT_APPLE} Bersama Ilmuwan Kecil & Creeper Buah! {MINECRAFT_APPLE}</div>', unsafe_allow_html=True)
 
     # Tampilkan animasi GIF Steve Minecraft
-    st.image(link_steve_gif, caption="Steve Minecraft Animasi", use_column_width=True)
+    st.image(link_steve_gif, caption="Steve si maniz", use_container_width=True)
 
     st.markdown("---")
 
