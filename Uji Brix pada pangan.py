@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
 # Title
-st.title("🧪 Uji Brix pada Bahan Pangan")
+st.title("❤️😚 Uji Brix pada Bahan Pangan")
 
 # Description
 st.write("""
