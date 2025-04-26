@@ -61,4 +61,87 @@ def loading(text="Loading..."):
 
 # Fungsi tombol kembali global
 def back_button():
-    with st
+    with st.container():
+        col = st.columns([0.1, 0.9])[0]
+        with col:
+            if st.button("🏠", key="back_menu"):
+                st.session_state.page = "menu"
+
+# Fungsi menu utama
+def show_menu():
+    st.title("🧪 Uji Brix Minecraft Style")
+
+    if st.button("▶️ Memulai Perhitungan"):
+        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
+        switch_page("perhitungan")
+
+    if st.button("📜 Rumus-rumus Brix"):
+        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
+        switch_page("rumus")
+
+    if st.button("🔬 Alat Hand Refraktometer"):
+        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
+        switch_page("alat")
+
+    if st.button("⚙️ Opsi Warna"):
+        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
+        switch_page("opsi")
+
+# Halaman Perhitungan
+def show_perhitungan():
+    back_button()
+    st.header("🔎 Perhitungan Brix")
+    with st.sidebar:
+        brix_awal = st.number_input("Brix Awal (°Bx)", 0.0, 85.0, step=0.1)
+        suhu = st.number_input("Suhu (°C)", 0.0, 100.0, step=0.1)
+        st.session_state.dark_mode = st.checkbox("Dark Mode", value=st.session_state.dark_mode)
+
+    if st.session_state.dark_mode:
+        st.markdown("""<style>body, .stApp { background-color: #1e1e1e; color: white; }</style>""", unsafe_allow_html=True)
+
+    if st.button("Hitung Koreksi Brix"):
+        selisih = suhu - 20
+        hasil = brix_awal + (selisih * 0.03)
+        st.success(f"Brix Terkoreksi: {hasil:.2f} °Bx")
+
+# Halaman Rumus
+def show_rumus():
+    back_button()
+    st.header("📜 Rumus Perhitungan Brix")
+    st.write("**Brix Terkoreksi = Brix Awal + ((Suhu Pengukuran - 20) × 0.03)**  \n"
+             "- Suhu Referensi: 20°C  \n"
+             "- Faktor Koreksi: 0.03 °Bx per °C")
+
+# Halaman Alat
+def show_alat():
+    back_button()
+    st.header("🔬 Alat Hand Refraktometer")
+    st.image("/mnt/data/b44f73b2-5a59-42cb-90f6-978d0868e67e.png", caption="Refraktometer Brix", use_column_width=True)
+
+# Halaman Opsi Warna
+def show_opsi():
+    back_button()
+    st.header("⚙️ Ganti Warna Background")
+    pilihan = st.radio("Pilih warna:", ["Merah", "Kuning", "Hijau", "Biru"])
+    warna = {"Merah": "#ff4c4c", "Kuning": "#ffeb3b", "Hijau": "#4caf50", "Biru": "#2196f3"}
+    st.session_state.background_color = warna[pilihan]
+
+# Fungsi untuk switch halaman
+def switch_page(next_page):
+    st.session_state.page = "loading"
+    st.session_state.next_page = next_page
+
+# Kontrol navigasi halaman
+if st.session_state.page == "menu":
+    show_menu()
+elif st.session_state.page == "loading":
+    loading("Memuat...")
+    st.session_state.page = st.session_state.next_page
+elif st.session_state.page == "perhitungan":
+    show_perhitungan()
+elif st.session_state.page == "rumus":
+    show_rumus()
+elif st.session_state.page == "alat":
+    show_alat()
+elif st.session_state.page == "opsi":
+    show_opsi()
