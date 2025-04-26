@@ -49,8 +49,9 @@ if page == f"{MINECRAFT_DIAMOND} Beranda":
     st.markdown(f'<div class="subtitle">{MINECRAFT_APPLE} Bersama Ilmuwan Kecil & Creeper Buah! {MINECRAFT_APPLE}</div>', unsafe_allow_html=True)
 
     # Gambar Minecraftian
-    st.image(link_stiker, caption="Minecraft Scientist Strawberry", use_container_width=True)
-
+    # Link stiker langsung ke gambar
+    link_stiker = "https://i.ibb.co/987t0F9/minecraft-scientist-strawberry.png"
+    st.image(link_stiker, caption="Minecraft Scientist Strawberry", use_column_width=True)
     st.markdown("---")
 
     st.info(f"{MINECRAFT_GOLD} Gunakan menu navigasi di sebelah kiri untuk memulai petualangan Uji Brix di dunia Minecraft! {MINECRAFT_PICKAXE}")
