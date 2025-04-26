@@ -12,32 +12,33 @@ if "background_color" not in st.session_state:
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 
-# CSS Minecraft-style + background
-st.markdown(f"""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-    html, body, [class*="css"] {{
-        font-family: 'Press Start 2P', cursive;
-        background-color: {st.session_state['background_color']};
-        background-image: url('https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8d/Grass_Block_JE4_BE3.png');
-        background-size: cover;
-        color: white;
-    }}
-    .stButton>button {{
-        background-color: #5a5a5a;
-        color: white;
-        border: 2px solid #00ff00;
-        border-radius: 4px;
-        padding: 10px 15px;
-        font-size: 12px;
-        transition: 0.2s;
-    }}
-    .stButton>button:hover {{
-        background-color: #3e3e3e;
-        border-color: #00cc00;
-    }}
-    </style>
-""", unsafe_allow_html=True)
+# Global CSS (kecuali menu utama)
+if st.session_state.page != "menu":
+    st.markdown(f"""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        html, body, [class*="css"] {{
+            font-family: 'Press Start 2P', cursive;
+            background-color: {st.session_state['background_color']};
+            background-image: url('https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8d/Grass_Block_JE4_BE3.png');
+            background-size: cover;
+            color: white;
+        }}
+        .stButton>button {{
+            background-color: #5a5a5a;
+            color: white;
+            border: 2px solid #00ff00;
+            border-radius: 4px;
+            padding: 10px 15px;
+            font-size: 12px;
+            transition: 0.2s;
+        }}
+        .stButton>button:hover {{
+            background-color: #3e3e3e;
+            border-color: #00cc00;
+        }}
+        </style>
+    """, unsafe_allow_html=True)
 
 # Suara klik
 st.markdown("""
@@ -50,21 +51,33 @@ function playClick() {
 """, unsafe_allow_html=True)
 
 # Fungsi loading
-
 def loading(text="Loading..."):
     with st.spinner(text):
         time.sleep(1)
 
 # Fungsi tombol kembali
-
 def back_button():
     if st.button("🏠 Kembali ke Menu"):
         st.session_state.page = "menu"
 
-# Fungsi menu utama
-
+# Fungsi Menu Utama
 def show_menu():
-    st.title("🧪 Uji Brix Minecraft Style")
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background: url('/mnt/data/89857e2a-432d-4bb8-ac81-185c00dd3ddb.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown("<h1 style='text-align: center; font-size: 50px; color: white;'>UJI BRIX PADA PANGAN</h1>", unsafe_allow_html=True)
+    st.write("")  # Spacer
 
     if st.button("▶️ Memulai Perhitungan"):
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
@@ -83,7 +96,6 @@ def show_menu():
         st.session_state.page = "opsi"
 
 # Halaman Perhitungan
-
 def show_perhitungan():
     back_button()
     st.header("🔎 Perhitungan Brix")
@@ -110,7 +122,6 @@ def show_perhitungan():
         st.info(f"Kategori Kadar Gula: {kualitas}")
 
 # Halaman Rumus
-
 def show_rumus():
     back_button()
     st.header("📜 Rumus Perhitungan Brix")
@@ -124,14 +135,12 @@ def show_rumus():
     """)
 
 # Halaman Alat
-
 def show_alat():
     back_button()
     st.header("🔬 Alat Hand Refraktometer")
     st.image("/mnt/data/b44f73b2-5a59-42cb-90f6-978d0868e67e.png", caption="Refraktometer Brix", use_column_width=True)
 
-# Halaman Opsi Warna
-
+# Halaman Opsi
 def show_opsi():
     back_button()
     st.header("⚙️ Ganti Warna Background")
