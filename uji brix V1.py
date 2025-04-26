@@ -1,87 +1,48 @@
 import streamlit as st
-import streamlit.components.v1 as components
+import time
 
-st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
+# Setup Page
+st.set_page_config(page_title="Uji Brix Minecraft Style", layout="centered")
 
-st.title("🧪 Uji Brix pada Bahan Pangan")
+# Inisialisasi session_state
+if 'page' not in st.session_state:
+    st.session_state['page'] = 'menu'
+if 'background_color' not in st.session_state:
+    st.session_state['background_color'] = '#1e1e1e'  # Default warna gelap
 
-st.write("""
-Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, dengan koreksi suhu.
-""")
+# Inject CSS untuk Minecraft Style
+st.markdown(f"""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    html, body, [class*="css"] {{
+        font-family: 'Press Start 2P', cursive;
+        background-color: {st.session_state['background_color']};
+        color: white;
+    }}
+    .stButton>button {{
+        background-color: #5a5a5a;
+        color: white;
+        border: 2px solid #00ff00;
+        border-radius: 4px;
+        padding: 10px 15px;
+        font-size: 12px;
+        transition: 0.2s;
+    }}
+    .stButton>button:hover {{
+        background-color: #3e3e3e;
+        border-color: #00cc00;
+    }}
+    .stApp {{
+        text-align: center;
+        margin-top: 50px;
+    }}
+    </style>
+""", unsafe_allow_html=True)
 
-# ➕ Penjelasan rumus
-with st.expander("📐 Rumus Perhitungan Brix"):
-    st.write("""
-    Rumus untuk menghitung koreksi kadar Brix berdasarkan suhu:
+# Tambahkan Sound Click
+st.markdown("""
+    <audio id="clickSound" src="https://freesound.org/data/previews/146/146725_2511580-lq.mp3"></audio>
+    <script>
+    function playClick() {
+        var audio = do
 
-    **Brix Terkoreksi = Brix Awal + ((Suhu Pengukuran - Suhu Referensi) × Faktor Koreksi)**
-
-    Di mana:
-    - Suhu Referensi = 20°C
-    - Faktor Koreksi = 0.03 °Bx/°C
-    """)
-
-# ➕ Model 3D Interaktif
-with st.expander("🔬 Lihat Alat Uji Brix (Model 3D Interaktif + Animasi)"):
-    components.html(
-        """
-        <model-viewer src="https://huggingface.co/datasets/yuntian-deng/public-assets/resolve/main/refraktometer_animasi.glb" 
-          alt="Refraktometer 3D" 
-          auto-rotate 
-          camera-controls 
-          ar 
-          autoplay
-          style="width: 100%; height: 500px;">
-        </model-viewer>
-
-        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-        """,
-        height=550,
-    )
-
-# Sidebar for input
-with st.sidebar:
-    st.header("Input Parameter")
-    brix_awal = st.number_input("Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
-    suhu = st.number_input("Masukkan suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
-    show_dark_mode = st.checkbox("Aktifkan Mode Gelap")
-
-# Apply dark mode
-if show_dark_mode:
-    st.markdown(
-        """
-        <style>
-            body { background-color: #1e1e1e; color: white; }
-            .stApp { background-color: #1e1e1e; }
-        </style>
-        """, unsafe_allow_html=True
-    )
-
-st.markdown("---")
-
-if st.button("Hitung Koreksi Brix"):
-    suhu_referensi = 20.0
-    koreksi_per_derajat = 0.03
-    selisih_suhu = suhu - suhu_referensi
-    koreksi = selisih_suhu * koreksi_per_derajat
-    brix_terkoreksi = brix_awal + koreksi
-
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
-        st.caption(f"Perhitungan: {brix_awal:.2f} + ({selisih_suhu:.2f} × {koreksi_per_derajat}) = {brix_terkoreksi:.2f} °Bx")
-
-        if brix_terkoreksi < 10:
-            kualitas = "Rendah (contoh: buah belum matang)"
-        elif 10 <= brix_terkoreksi <= 15:
-            kualitas = "Sedang (standar industri untuk buah segar)"
-        else:
-            kualitas = "Tinggi (madu, sirup, atau buah sangat manis)"
-
-        st.info(f"Kategori Kadar Gula: {kualitas}")
-
-    with col2:
-        st.image("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",caption="Buah Random!", use_column_width=True)
-
-st.markdown("---")
-st.caption("📘 Dibuat dengan Streamlit untuk edukasi uji Brix pada pangan.")
