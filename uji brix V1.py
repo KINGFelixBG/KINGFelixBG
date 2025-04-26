@@ -59,6 +59,14 @@ def loading(text="Loading..."):
     with st.spinner(text):
         time.sleep(2)
 
+# Fungsi tombol kembali global
+def back_button():
+    with st.container():
+        col = st.columns([0.1, 0.9])[0]
+        with col:
+            if st.button("🏠", key="back_menu"):
+                st.session_state.page = "menu"
+
 # Fungsi menu utama
 def show_menu():
     st.title("🧪 Uji Brix Minecraft Style")
@@ -71,7 +79,7 @@ def show_menu():
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
         switch_page("rumus")
 
-    if st.button("🔬 Alat Refraktometer"):
+    if st.button("🔬 Alat Hand Refraktometer"):
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
         switch_page("alat")
 
@@ -79,14 +87,26 @@ def show_menu():
         st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
         switch_page("opsi")
 
-# Fungsi tombol kembali global
-def back_button():
-    with st.container():
-        col = st.columns([0.1, 0.9])[0]
-        with col:
-            if st.button("🏠", key="back_menu"):
-                st.session_state.page = "menu"
-
 # Halaman Perhitungan
 def show_perhitungan():
+    back_button()
+    st.header("🔎 Perhitungan Brix")
+    with st.sidebar:
+        brix_awal = st.number_input("Brix Awal (°Bx)", 0.0, 85.0, step=0.1)
+        suhu = st.number_input("Suhu (°C)", 0.0, 100.0, step=0.1)
+        st.session_state.dark_mode = st.checkbox("Dark Mode", value=st.session_state.dark_mode)
 
+    if st.session_state.dark_mode:
+        st.markdown("""<style>body, .stApp { background-color: #1e1e1e; color: white; }</style>""", unsafe_allow_html=True)
+
+    if st.button("Hitung Koreksi Brix"):
+        selisih = suhu - 20
+        hasil = brix_awal + (selisih * 0.03)
+        st.success(f"Brix Terkoreksi: {hasil:.2f} °Bx")
+
+# Halaman Rumus
+def show_rumus():
+    back_button()
+    st.header("📜 Rumus Perhitungan Brix")
+    st.write("""
+    **Brix Terkoreksi = Brix A**
