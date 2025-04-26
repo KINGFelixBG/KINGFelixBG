@@ -39,8 +39,8 @@ if page == "Beranda":
     st.markdown('<div class="subtitle">Bersama Ilmuwan Kecil dan Orang Buah!</div>', unsafe_allow_html=True)
 
     # Menampilkan gambar di slide awal
-    st.image("https://i.ibb.co/QdJ6KHZ/pixel-scientist.png", caption="Ilmuwan Kecil - Peneliti Brix","creeper buah-si maniz",use_container_width=True)
-    
+    st.image("https://i.ibb.co/QdJ6KHZ/pixel-scientist.png", caption="Ilmuwan Kecil - Peneliti Brix", use_column_width=True)
+    st.image("https://i.ibb.co/whR1Zn7/pixel-fruit-man.png", caption="Creeper Buah - Si Maniz", use_column_width=True)
     st.markdown("---")
 
     st.info("Gunakan menu navigasi di sebelah kiri untuk memulai Uji Brix!")
