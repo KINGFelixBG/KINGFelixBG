@@ -1,14 +1,14 @@
 import streamlit as st
 import math
 
-st.set_page_config(page_title="Kalkulator pH & pOH", layout="centered")
+st.set_page_config(page_title="Kalkulator brix", layout="centered")
 
 # Title
-st.title("🧪 Kalkulator pH & pOH Larutan")
+st.title("🧪 Kalkulator brix")
 
 # Description
 st.write("""
-Aplikasi ini membantu menghitung nilai pH dan pOH larutan berdasarkan input konsentrasi ion [H⁺] atau [OH⁻].
+Aplikasi ini membantu menghitung nilai brix berdasarkan suhu dan data brix.
 """)
 
 # Sidebar for input
