@@ -12,7 +12,86 @@ if "background_color" not in st.session_state:
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 
-# Global CSS (kecuali menu utama)
+# Fungsi loading ringan
+def loading(text="Loading..."):
+    with st.spinner(text):
+        time.sleep(1)
+
+# Fungsi tombol kembali
+def back_button():
+    if st.button("🏠 Kembali ke Menu"):
+        st.session_state.page = "menu"
+
+# Fungsi suara klik
+st.markdown("""
+<audio id="clickSound" src="https://freesound.org/data/previews/146/146725_2511580-lq.mp3"></audio>
+<script>
+function playClick() {
+    document.getElementById("clickSound").play();
+}
+</script>
+""", unsafe_allow_html=True)
+
+# Fungsi Menu Utama
+def show_menu():
+    # CSS Minecraft untuk Menu Utama
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background: url('/mnt/data/89857e2a-432d-4bb8-ac81-185c00dd3ddb.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: white;
+            text-shadow: 3px 3px 5px black;
+            text-align: center;
+            font-size: 50px;
+            margin-top: 50px;
+        }
+        .minecraft-button {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #5a5a5a;
+            border: 2px solid #00ff00;
+            padding: 15px 20px;
+            margin: 10px auto;
+            width: 300px;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            display: block;
+            transition: 0.3s;
+        }
+        .minecraft-button:hover {
+            background-color: #3e3e3e;
+            border-color: #00cc00;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Judul Besar
+    st.markdown("<h1>UJI BRIX PADA PANGAN</h1>", unsafe_allow_html=True)
+
+    # Tombol Minecraft-style
+    if st.button("▶️ Memulai Perhitungan", key="memulai"):
+        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
+        st.session_state.page = "perhitungan"
+    if st.button("📜 Rumus-rumus Brix", key="rumus"):
+        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
+        st.session_state.page = "rumus"
+    if st.button("🔬 Alat Hand Refraktometer", key="alat"):
+        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
+        st.session_state.page = "alat"
+    if st.button("⚙️ Opsi Warna", key="opsi"):
+        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
+        st.session_state.page = "opsi"
+
+# Fungsi halaman lain (Perhitungan, Rumus, Alat, Opsi)
+
+# Global CSS selain menu utama
 if st.session_state.page != "menu":
     st.markdown(f"""
         <style>
@@ -40,62 +119,6 @@ if st.session_state.page != "menu":
         </style>
     """, unsafe_allow_html=True)
 
-# Suara klik
-st.markdown("""
-<audio id="clickSound" src="https://freesound.org/data/previews/146/146725_2511580-lq.mp3"></audio>
-<script>
-function playClick() {
-    document.getElementById("clickSound").play();
-}
-</script>
-""", unsafe_allow_html=True)
-
-# Fungsi loading
-def loading(text="Loading..."):
-    with st.spinner(text):
-        time.sleep(1)
-
-# Fungsi tombol kembali
-def back_button():
-    if st.button("🏠 Kembali ke Menu"):
-        st.session_state.page = "menu"
-
-# Fungsi Menu Utama
-def show_menu():
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background: url('/mnt/data/89857e2a-432d-4bb8-ac81-185c00dd3ddb.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown("<h1 style='text-align: center; font-size: 50px; color: white;'>UJI BRIX PADA PANGAN</h1>", unsafe_allow_html=True)
-    st.write("")  # Spacer
-
-    if st.button("▶️ Memulai Perhitungan"):
-        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
-        st.session_state.page = "perhitungan"
-
-    if st.button("📜 Rumus-rumus Brix"):
-        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
-        st.session_state.page = "rumus"
-
-    if st.button("🔬 Alat Hand Refraktometer"):
-        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
-        st.session_state.page = "alat"
-
-    if st.button("⚙️ Opsi Warna"):
-        st.markdown("<script>playClick()</script>", unsafe_allow_html=True)
-        st.session_state.page = "opsi"
-
-# Halaman Perhitungan
 def show_perhitungan():
     back_button()
     st.header("🔎 Perhitungan Brix")
@@ -121,7 +144,6 @@ def show_perhitungan():
             kualitas = "Tinggi (madu, sirup, dll)"
         st.info(f"Kategori Kadar Gula: {kualitas}")
 
-# Halaman Rumus
 def show_rumus():
     back_button()
     st.header("📜 Rumus Perhitungan Brix")
@@ -134,13 +156,11 @@ def show_rumus():
     - Faktor Koreksi: 0.03 °Bx/°C
     """)
 
-# Halaman Alat
 def show_alat():
     back_button()
     st.header("🔬 Alat Hand Refraktometer")
     st.image("/mnt/data/b44f73b2-5a59-42cb-90f6-978d0868e67e.png", caption="Refraktometer Brix", use_column_width=True)
 
-# Halaman Opsi
 def show_opsi():
     back_button()
     st.header("⚙️ Ganti Warna Background")
