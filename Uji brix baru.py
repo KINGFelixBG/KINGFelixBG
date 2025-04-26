@@ -91,14 +91,8 @@ elif page == "Uji Brix":
         st.info(f"🌟 Kategori Kadar Gula: {kualitas}")
 
         # Penjelasan lengkap langkah perhitungan
-        st.markdown(f"""
-        ### Penjelasan Perhitungan:
-        - **Nilai Brix Awal**: Nilai awal yang diukur menggunakan refraktometer.
-        - **Suhu Pengukuran**: Suhu larutan saat pengukuran.
-        - **Suhu Referensi**: Suhu standar pengukuran refraktometer (20°C).
-        - **Koreksi per Derajat Celsius**: Nilai koreksi sebesar 0.03 °Bx per derajat Celsius.
-
-        #### Langkah Perhitungan:
+        st.markdown("### Penjelasan Perhitungan:")
+        st.markdown("""
         1. **Hitung Selisih Suhu**:
            \[
            \text{Selisih Suhu} = \text{Suhu Pengukuran} - \text{Suhu Referensi}
@@ -125,9 +119,4 @@ elif page == "Uji Brix":
            \[
            {brix_awal:.2f} + {koreksi:.2f} = {brix_terkoreksi:.2f} \, \text{°Bx}
            \]
-
-        #### Kategori Kadar Gula:
-        - **Rendah**: Jika nilai Brix terkoreksi < 10 (contoh: buah belum matang).
-        - **Sedang**: Jika nilai Brix terkoreksi berada antara 10 hingga 15 (standar industri untuk buah segar).
-        - **Tinggi**: Jika nilai Brix terkoreksi > 15 (contoh: madu, sirup, atau buah sangat manis).
         """)
