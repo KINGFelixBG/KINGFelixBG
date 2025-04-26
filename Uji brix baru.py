@@ -102,31 +102,31 @@ elif page == "Uji Brix":
         - **Koreksi per Derajat Celsius**: Nilai koreksi sebesar 0.03 °Bx per derajat Celsius.
 
         #### Langkah Perhitungan:
-        1. Hitung selisih suhu:
+        1. **Hitung Selisih Suhu**:
            \[
-           \\text{{Selisih Suhu}} = \\text{{Suhu Pengukuran}} - \\text{{Suhu Referensi}}
-           \]
-           Dalam kasus ini: 
-           \[
-           {suhu:.2f} - {suhu_referensi} = {selisih_suhu:.2f} \, \\text{{°C}}
-           \]
-
-        2. Hitung koreksi Brix:
-           \[
-           \\text{{Koreksi}} = \\text{{Selisih Suhu}} \\times \\text{{Koreksi per Derajat Celcius}}
+           \text{{Selisih Suhu}} = \text{{Suhu Pengukuran}} - \text{{Suhu Referensi}}
            \]
            Dalam kasus ini:
            \[
-           {selisih_suhu:.2f} \\times {koreksi_per_derajat} = {koreksi:.2f} \, \\text{{°Bx}}
+           {suhu:.2f} - {suhu_referensi:.2f} = {selisih_suhu:.2f} \, \text{{°C}}
            \]
 
-        3. Hitung Brix Terkoreksi:
+        2. **Hitung Koreksi Brix**:
            \[
-           \\text{{Brix Terkoreksi}} = \\text{{Brix Awal}} + \\text{{Koreksi}}
+           \text{{Koreksi}} = \text{{Selisih Suhu}} \times \text{{Koreksi per Derajat Celcius}}
            \]
            Dalam kasus ini:
            \[
-           {brix_awal:.2f} + {koreksi:.2f} = {brix_terkoreksi:.2f} \, \\text{{°Bx}}
+           {selisih_suhu:.2f} \times {koreksi_per_derajat:.2f} = {koreksi:.2f} \, \text{{°Bx}}
+           \]
+
+        3. **Hitung Brix Terkoreksi**:
+           \[
+           \text{{Brix Terkoreksi}} = \text{{Brix Awal}} + \text{{Koreksi}}
+           \]
+           Dalam kasus ini:
+           \[
+           {brix_awal:.2f} + {koreksi:.2f} = {brix_terkoreksi:.2f} \, \text{{°Bx}}
            \]
 
         #### Kategori Kadar Gula:
