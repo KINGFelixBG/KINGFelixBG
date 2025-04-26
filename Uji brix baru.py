@@ -49,7 +49,7 @@ if page == f"{MINECRAFT_DIAMOND} Beranda":
     st.markdown(f'<div class="subtitle">{MINECRAFT_APPLE} Bersama Ilmuwan Kecil & Creeper Buah! {MINECRAFT_APPLE}</div>', unsafe_allow_html=True)
 
     # Gambar Minecraftian
-    st.image("https://i.ibb.co/6vmQ6Bd/minecraft-scientist-and-fruit.png", caption="Ilmuwan & Creeper Buah Minecraft", use_container_width=True)
+    st.image(link_stiker, caption="Minecraft Scientist Strawberry" , caption="Ilmuwan & Creeper Buah Minecraft", use_container_width=True)
 
     st.markdown("---")
 
