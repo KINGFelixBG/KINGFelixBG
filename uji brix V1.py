@@ -1,186 +1,100 @@
 import streamlit as st
-import time
-from datetime import datetime
+from streamlit_autorefresh import st_autorefresh
 
-st.set_page_config(page_title="Uji Brix Minecraft", layout="centered")
+st.set_page_config(page_title="Uji Brix Adventure", layout="centered")
 
-# Initialize session states
-if "page" not in st.session_state:
-    st.session_state.page = "menu"
-if "play_music" not in st.session_state:
-    st.session_state.play_music = True
-if "volume" not in st.session_state:
-    st.session_state.volume = 0.5  # default volume 50%
-if "font_choice" not in st.session_state:
-    st.session_state.font_choice = "Times New Roman"
+st.sidebar.title("Navigasi")
+page = st.sidebar.selectbox("Pilih Halaman", ["Beranda", "Uji Brix"])
 
-# Function for loading spinner
-def loading(text="sedang proses sahabat"):
-    with st.spinner(text):
-        time.sleep(1.2)
+if page == "Beranda":
+    # Setup refresh otomatis tiap 3 detik
+    count = st_autorefresh(interval=3000, limit=None, key="slide_refresh")
 
-# Function for background
-def get_background_url():
-    if st.session_state.page == "perhitungan":
-        return "https://e0.pxfuel.com/wallpapers/891/197/desktop-wallpaper-minecraft-backround-minecraft-scenery.jpg"
-    elif st.session_state.page == "rumus":
-        return "https://c4.wallpaperflare.com/wallpaper/446/712/946/minecraft-bookshelves-hd-wallpaper-preview.jpg"
-    elif st.session_state.page == "alat":
-        return "https://img.freepik.com/free-photo/close-up-scientific-equipment-laboratory_23-2148916225.jpg"
-    elif st.session_state.page == "opsi":
-        return "https://wallpaperaccess.com/full/2682775.png"
-    else:
-        return "https://i.pinimg.com/736x/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg"
+    # Daftar gambar karakter
+    images = [
+        {
+            "url": "https://i.ibb.co/QdJ6KHZ/pixel-scientist.png",
+            "caption": "Ilmuwan Kecil - Si Peneliti Brix"
+        },
+        {
+            "url": "https://i.ibb.co/whR1Zn7/pixel-fruit-man.png",
+            "caption": "Orang Buah - Sang Pembawa Manis"
+        }
+    ]
 
-# Apply CSS
-bg_url = get_background_url()
-st.markdown(f"""
-    <style>
-    html, body, [class*="css"] {{
-        font-family: {st.session_state.font_choice}, sans-serif;
-        background: url('{bg_url}') no-repeat center center fixed;
-        background-size: cover;
-    }}
-    .stApp {{
-        animation: fadeIn 1s;
-    }}
-    @keyframes fadeIn {{ 0% {{opacity: 0;}} 100% {{opacity: 1;}} }}
-    .stButton>button {{
-        font-family: 'Press Start 2P', cursive;
-        background-color: #5a5a5a;
-        border: 3px solid #00ff00;
-        border-radius: 8px;
-        padding: 12px 18px;
-        margin: 10px auto;
-        width: 300px;
-        font-size: 14px;
-        color: white;
-        text-align: center;
-        display: block;
-        transition: 0.3s;
-    }}
-    .stButton>button:hover {{
-        background-color: #3e3e3e;
-        border-color: #00cc00;
-    }}
-    </style>
-""", unsafe_allow_html=True)
+    # Pilih gambar sesuai counter
+    current_image = images[count % len(images)]
 
-# Music player
-def embed_music():
-    if st.session_state.play_music and st.session_state.page in ["menu", "perhitungan"]:
-        volume = st.session_state.volume
-        st.markdown(f"""
-        <audio id="audioPlayer" autoplay loop>
-            <source src="https://vgmsite.com/soundtracks/minecraft-volume-beta/hbceziht/12%20-%20Wet%20Hands.mp3" type="audio/mpeg">
-        </audio>
-        <script>
-        var audio = document.getElementById('audioPlayer');
-        audio.volume = {volume};
-        </script>
-        """, unsafe_allow_html=True)
+    # CSS untuk styling
+    st.markdown(
+        """
+        <style>
+        .title {
+            font-size:50px;
+            color:#00bcd4;
+            text-align:center;
+            font-weight:bold;
+        }
+        .subtitle {
+            font-size:22px;
+            text-align:center;
+            color: #666;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-# Tiny music toggle button
-def music_toggle_icon():
-    icon = "🔊" if st.session_state.play_music else "🔇"
-    col = st.columns([0.95, 0.05])[1]
-    with col:
-        if st.button(icon, key="music_toggle"):
-            st.session_state.play_music = not st.session_state.play_music
+    # Tampilan Title dan Subtitle
+    st.markdown('<div class="title">Uji Brix Adventure</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Petualangan Dimulai!</div>', unsafe_allow_html=True)
 
-# Navigation back to menu
-def back_button():
-    if st.button("🏠 Kembali ke Menu"):
-        st.session_state.page = "menu"
+    # Gambar pixel karakter
+    st.image(current_image["url"], caption=current_image["caption"], use_column_width=True)
 
-# Pages
-def show_menu():
-    embed_music()
-    music_toggle_icon()
-    st.markdown("<h1 style='text-align: center; font-size: 50px;'>UJI BRIX PADA PANGAN</h1>", unsafe_allow_html=True)
+    st.markdown("---")
 
-    if st.button("▶️ Memulai Perhitungan"):
-        st.session_state.page = "perhitungan"
-    if st.button("📜 Rumus-rumus Brix"):
-        st.session_state.page = "rumus"
-    if st.button("🔬 Alat Hand Refraktometer"):
-        st.session_state.page = "alat"
-    if st.button("⚙️ Opsi Aplikasi"):
-        st.session_state.page = "opsi"
+    # Tombol mulai (redirect ke Uji Brix manual pakai sidebar)
+    st.info("Gunakan navigasi di sebelah kiri untuk memulai Uji Brix!")
 
-def show_perhitungan():
-    embed_music()
-    music_toggle_icon()
-    back_button()
-    st.header("🔎 Perhitungan Brix")
-    with st.sidebar:
-        brix_awal = st.number_input("Brix Awal (°Bx)", 0.0, 85.0, step=0.1)
-        suhu = st.number_input("Suhu (°C)", 0.0, 100.0, step=0.1)
+    st.markdown("---")
+    st.caption("Made with ❤️ in Streamlit Pixel Retro Adventure")
 
-    if st.button("Hitung Koreksi Brix"):
-        suhu_ref = 20.0
-        koreksi = 0.03
-        selisih = suhu - suhu_ref
-        hasil = brix_awal + (selisih * koreksi)
+# Halaman Uji Brix
+elif page == "Uji Brix":
+    st.title("🧪 Uji Brix pada Bahan Pangan")
 
-        st.success(f"Hasil Koreksi: {hasil:.2f} °Bx")
-
-        if hasil < 8:
-            keterangan = "Buah belum matang (sangat rendah)"
-        elif 8 <= hasil < 12:
-            keterangan = "Buah setengah matang (cukup)"
-        elif 12 <= hasil < 16:
-            keterangan = "Buah matang sempurna (standar industri)"
-        elif 16 <= hasil < 22:
-            keterangan = "Sangat manis (sirup alami)"
-        else:
-            keterangan = "Kadar gula tinggi (madu atau konsentrat)"
-
-        st.info(f"Keterangan: {keterangan}")
-
-        st.markdown(f"""
-        **Langkah Perhitungan:**
-        - Brix Terkoreksi = Brix Awal + ((Suhu - 20) × 0.03)
-        - {brix_awal} + (({suhu} - 20) × 0.03) = {hasil:.2f} °Bx
-        """)
-
-def show_rumus():
-    back_button()
-    st.header("📜 Rumus Uji Brix")
     st.write("""
-    **Rumus:**
-    Brix Terkoreksi = Brix Awal + ((Suhu - 20) × 0.03)
-
-    Penyesuaian ini mengoreksi perubahan indeks bias akibat suhu. Biasanya suhu referensi adalah 20°C.
+    Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, dengan koreksi suhu.
     """)
 
-def show_alat():
-    back_button()
-    st.header("🔬 Alat Hand Refraktometer")
-    st.image("https://upload.wikimedia.org/wikipedia/commons/6/6d/Refractometer.png", caption="Gambar Alat Hand Refraktometer", use_column_width=True)
+    # Sidebar Input
+    st.header("Masukkan Parameter Uji")
 
-def show_opsi():
-    back_button()
-    st.header("⚙️ Opsi Aplikasi")
-    pilihan_font = st.radio("Pilih Font Tampilan:", ["Times New Roman", "Arial"], horizontal=True)
-    st.session_state.font_choice = pilihan_font
+    brix_awal = st.number_input("Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
+    suhu = st.number_input("Masukkan suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
 
-    volume = st.slider("Volume Musik", 0.0, 1.0, st.session_state.volume, step=0.05)
-    st.session_state.volume = volume
-    st.success(f"Volume diatur: {int(volume*100)}%")
+    if st.button("Hitung Koreksi Brix"):
+        suhu_referensi = 20.0
+        koreksi_per_derajat = 0.03
 
-# Page Controller
-if st.session_state.page == "menu":
-    show_menu()
-elif st.session_state.page == "perhitungan":
-    loading()
-    show_perhitungan()
-elif st.session_state.page == "rumus":
-    loading()
-    show_rumus()
-elif st.session_state.page == "alat":
-    loading()
-    show_alat()
-elif st.session_state.page == "opsi":
-    loading()
-    show_opsi()
+        selisih_suhu = suhu - suhu_referensi
+        koreksi = selisih_suhu * koreksi_per_derajat
+        brix_terkoreksi = brix_awal + koreksi
+
+        st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
+        st.caption(f"Perhitungan: {brix_awal:.2f} + ({selisih_suhu:.2f} × {koreksi_per_derajat}) = {brix_terkoreksi:.2f} °Bx")
+
+        # Penilaian kualitas bahan pangan
+        if brix_terkoreksi < 10:
+            kualitas = "Rendah (contoh: buah belum matang)"
+        elif 10 <= brix_terkoreksi <= 15:
+            kualitas = "Sedang (standar industri untuk buah segar)"
+        else:
+            kualitas = "Tinggi (madu, sirup, atau buah sangat manis)"
+
+        st.info(f"Kategori Kadar Gula: {kualitas}")
+
+    st.markdown("---")
+    st.caption("📘 Dibuat dengan Streamlit untuk edukasi uji Brix pada pangan.")
+    
