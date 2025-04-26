@@ -13,18 +13,10 @@ if "dark_mode" not in st.session_state:
 if "play_music" not in st.session_state:
     st.session_state.play_music = True
 
-# Fungsi loading dengan overlay Minecraft-style
+# Fungsi loading native Streamlit spinner
 def loading(text="sedang proses sahabat"):
-    loading_html = f"""
-    <div style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:black; z-index:9999; display:flex; justify-content:center; align-items:center;">
-        <h1 style='color:lime; font-family:monospace; font-size:40px;'>{text}</h1>
-    </div>
-    <script>
-    setTimeout(() => document.querySelector('div[style*="z-index:9999"]').remove(), 2000);
-    </script>
-    """
-    st.markdown(loading_html, unsafe_allow_html=True)
-    time.sleep(1.5)
+    with st.spinner(text):
+        time.sleep(1.5)
 
 # Fungsi tombol kembali
 def back_button():
@@ -73,6 +65,24 @@ st.markdown(f"""
     .block-container {{ background-color: rgba(0, 0, 0, 0.0); }}
     @keyframes fadeIn {{ 0% {{opacity: 0;}} 100% {{opacity: 1;}} }}
     h1 {{ font-family: 'Press Start 2P', cursive; color: white; text-shadow: 3px 3px 0 black; }}
+    .stButton>button {{
+        font-family: 'Press Start 2P', cursive;
+        background-color: #5a5a5a;
+        border: 3px solid #00ff00;
+        border-radius: 8px;
+        padding: 15px 20px;
+        margin: 10px auto;
+        width: 320px;
+        font-size: 16px;
+        color: white;
+        text-align: center;
+        display: block;
+        transition: 0.3s;
+    }}
+    .stButton>button:hover {{
+        background-color: #3e3e3e;
+        border-color: #00cc00;
+    }}
     </style>
 """, unsafe_allow_html=True)
 
