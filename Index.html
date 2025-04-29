@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemiGuard: Lab Survival</title>
+    <style>
+        /* CSS Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 1024px;
+            max-height: 768px;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+    </div>
+    <script>
+        // JavaScript Game Logic
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Konfigurasi layar
+        canvas.width = 1024;
+        canvas.height = 768;
+
+        // Warna
+        const WHITE = "#FFFFFF";
+        const BLACK = "#000000";
+        const RED = "#FF0000";
+        const BLUE = "#0078FF";
+        const GREEN = "#00FF00";
+        const YELLOW = "#FFFF00";
+
+        // Variabel game
+        let currentLevel = 1;
+        let energy = 1000;
+        let chemicals = [];
+        let projectiles = [];
+        let bacteria = [];
+        let levelStartTime = Date.now();
+
+        // Kelas dalam game
+        class Chemical {
+            constructor(x, y, chemType) {
+                this.x = x;
+                this.y = y;
+                this.width = 40;
+                this.height = 40;
+                this.chemType = chemType;
+                this.energy = 100;
+                this.color = chemType === "O2" ? BLUE : GREEN;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+        }
+
+        class Bacterium {
+            constructor(speed) {
+                this.x = Math.random() * (canvas.width - 40);
+                this.y = -50;
+                this.width = 40;
+                this.height = 40;
+                this.speed = speed;
+                this.health = 10;
+            }
+            move() {
+                this.y += this.speed;
+            }
+            draw() {
+                ctx.fillStyle = RED;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+        }
+
+        class Projectile {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.width = 10;
+                this.height = 10;
+                this.speed = 10;
+            }
+            move() {
+                this.y -= this.speed;
+            }
+            draw() {
+                ctx.fillStyle = YELLOW;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+        }
+
+        // Fungsi utama game loop
+        function gameLoop() {
+            // Bersihkan layar
+            ctx.fillStyle = BLACK;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Perbarui dan gambar chemicals
+            chemicals.forEach((chem, index) => {
+                chem.draw();
+                chem.energy -= 0.1;
+                if (chem.energy <= 0) chemicals.splice(index, 1);
+            });
+
+            // Perbarui dan gambar projectiles
+            projectiles.forEach((proj, index) => {
+                proj.move();
+                proj.draw();
+                if (proj.y < 0) projectiles.splice(index, 1);
+            });
+
+            // Perbarui dan gambar bacteria
+            bacteria.forEach((bac, index) => {
+                bac.move();
+                bac.draw();
+                if (bac.y > canvas.height) bacteria.splice(index, 1);
+            });
+
+            // Gambar UI
+            drawUI();
+
+            // Loop berikutnya
+            requestAnimationFrame(gameLoop);
+        }
+
+        // UI
+        function drawUI() {
+            ctx.fillStyle = WHITE;
+            ctx.font = "20px Arial";
+            ctx.fillText(`Energy: ${energy}`, 10, 30);
+            ctx.fillText(`Level: ${currentLevel}`, 10, 60);
+        }
+
+        // Inisialisasi game
+        function initGame() {
+            chemicals.push(new Chemical(500, 500, "O2"));
+            gameLoop();
+        }
+
+        // Event listener untuk kontrol
+        canvas.addEventListener("click", (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            projectiles.push(new Projectile(x, y));
+        });
+
+        // Mulai game
+        initGame();
+    </script>
+</body>
+</html>
