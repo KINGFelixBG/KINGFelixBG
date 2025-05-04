@@ -6,7 +6,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# CSS untuk efek geser pada navigasi, background karakter kimia, dan warna huruf hitam
+# CSS untuk tampilan
 st.markdown(
     """
     <style>
@@ -27,7 +27,7 @@ st.markdown(
         background-color: #4CAF50;
     }
 
-    /* Warna huruf menjadi hitam */
+    /* Warna huruf hitam */
     .block-container {
         color: black;
     }
@@ -49,19 +49,12 @@ if menu == "Beranda":
     st.title("Selamat Datang di Website Perhitungan Uji Brix")
     st.markdown("---")
     st.write("""
-    Website ini dibuat oleh **Kelompok 3 Kimia Terapan** untuk membantu memahami konsep dan perhitungan Uji Brix. 
+    Website ini dibuat untuk membantu memahami konsep dan perhitungan Uji Brix. 
     Dengan fitur-fitur edukasi dan interaktif, pengguna dapat mempelajari:
     - Pengertian Uji Brix
     - Jenis-jenis Uji Brix
     - Alat-alat pembacaan Uji Brix
     - Rumus dan perhitungan nilai Brix
-    
-    **Anggota Kelompok:**
-    - Felix
-    - Rahmat
-    - Sinta
-    - Diah
-    - Bagas
     """)
 
 # Pengaturan
@@ -121,22 +114,22 @@ elif menu == "UJI BRIX":
     # Sub-menu: Rumus
     elif sub_menu == "Rumus":
         st.header("Rumus Menghitung Uji Brix")
-        st.write("""
+        st.write(r"""
         Rumus dasar untuk menghitung nilai Brix adalah:
         \[
-        Brix (\%) = \frac{m_{gula}}{m_{larutan}} \times 100
+        \text{Brix (\%)} = \frac{m_{\text{gula}}}{m_{\text{larutan}}} \times 100
         \]
         Di mana:
-        - \(m_{gula}\) adalah massa gula terlarut (dalam gram).
-        - \(m_{larutan}\) adalah massa total larutan (dalam gram).
+        - \(m_{\text{gula}}\) adalah massa gula terlarut (dalam gram).
+        - \(m_{\text{larutan}}\) adalah massa total larutan (dalam gram).
 
         ### Rumus Koreksi Suhu
         Koreksi suhu diperlukan untuk memperbaiki nilai Brix sesuai dengan suhu pengukuran:
         \[
-        Brix_{koreksi} = Brix_{awal} + (T - T_{referensi}) \times K
+        Brix_{\text{koreksi}} = Brix_{\text{awal}} + (T - T_{\text{referensi}}) \times K
         \]
         Di mana:
         - \(T\) adalah suhu pengukuran (°C).
-        - \(T_{referensi}\) adalah suhu referensi (biasanya 20°C).
+        - \(T_{\text{referensi}}\) adalah suhu referensi (biasanya 20°C).
         - \(K\) adalah koefisien koreksi suhu (standar: 0.03 per °C).
         """)
