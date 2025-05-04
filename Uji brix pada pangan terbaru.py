@@ -6,7 +6,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# CSS untuk efek geser pada navigasi dan karakter kartun sebagai background
+# CSS untuk efek geser pada navigasi, background karakter kimia, dan warna huruf hitam
 st.markdown(
     """
     <style>
@@ -27,9 +27,9 @@ st.markdown(
         background-color: #4CAF50;
     }
 
-    /* Teks warna putih agar kontras dengan background */
+    /* Warna huruf menjadi hitam */
     .block-container {
-        color: white;
+        color: black;
     }
     </style>
     """,
