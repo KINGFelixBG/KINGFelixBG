@@ -1,56 +1,67 @@
 import streamlit as st
 
-st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
+# Set up the title and theme
+st.title("Kalkulator Uji Brix")
+st.subheader("Tema: Kimia - Perhitungan Uji Brix")
+st.sidebar.title("Navigasi")
+menu = st.sidebar.radio("Pilih Opsi", ["Pengertian", "Jenis Alat", "Rumus", "Kalkulator", "Penjelasan Hasil"])
 
-st.title("🧪 Uji Brix pada Bahan Pangan")
+# Pengertian Uji Brix
+if menu == "Pengertian":
+    st.header("Pengertian Uji Brix")
+    st.write("""
+    Uji Brix adalah metode untuk mengukur kadar gula terlarut dalam suatu larutan, 
+    biasanya digunakan dalam industri makanan dan minuman, seperti jus buah, minuman ringan, dan lainnya. 
+    Nilai Brix dinyatakan dalam bentuk persentase (%), yang merepresentasikan jumlah gram gula dalam 100 ml larutan.
+    """)
 
-st.write("""
-Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, dengan koreksi suhu.
-""")
+# Jenis-Jenis Alat Uji Brix
+elif menu == "Jenis Alat":
+    st.header("Jenis-Jenis Alat Uji Brix")
+    st.write("""
+    Beberapa jenis alat yang digunakan untuk uji Brix adalah:
+    1. **Refraktometer**: Alat optik yang menggunakan prinsip pembiasan cahaya.
+    2. **Hydrometer Brix**: Alat yang mengukur densitas larutan untuk mengestimasi kadar gula.
+    3. **Digital Brix Meter**: Alat elektronik yang memberikan hasil lebih presisi dan cepat.
+    """)
 
-# Sidebar for input
-with st.sidebar:
-    st.header("Input Parameter")
-    brix_awal = st.number_input("Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
-    suhu = st.number_input("Masukkan suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
-    show_dark_mode = st.checkbox("Aktifkan Mode Gelap")
+# Rumus Perhitungan Uji Brix
+elif menu == "Rumus":
+    st.header("Rumus Perhitungan Uji Brix")
+    st.write("""
+    Rumus dasar untuk uji Brix adalah:
+    \[
+    Brix (\%) = \frac{m_{gula}}{m_{larutan}} \times 100
+    \]
+    Di mana:
+    - \(m_{gula}\) adalah massa gula terlarut (dalam gram).
+    - \(m_{larutan}\) adalah massa total larutan (dalam gram).
+    """)
 
-# Apply dark mode
-if show_dark_mode:
-    st.markdown(
-        """
-        <style>
-            body { background-color: #1e1e1e; color: white; }
-            .stApp { background-color: #1e1e1e; }
-        </style>
-        """, unsafe_allow_html=True
-    )
+# Kalkulator Uji Brix
+elif menu == "Kalkulator":
+    st.header("Kalkulator Uji Brix")
+    st.write("Masukkan data untuk menghitung nilai Brix:")
+    
+    # Input data
+    mass_gula = st.number_input("Masukkan massa gula terlarut (gram):", min_value=0.0, step=0.1)
+    mass_larutan = st.number_input("Masukkan massa total larutan (gram):", min_value=0.1, step=0.1)
+    
+    if st.button("Hitung Brix"):
+        # Perhitungan
+        brix = (mass_gula / mass_larutan) * 100
+        st.success(f"Nilai Brix: {brix:.2f} %")
 
-st.markdown("---")
-
-if st.button("Hitung Koreksi Brix"):
-    suhu_referensi = 20.0
-    koreksi_per_derajat = 0.03
-    selisih_suhu = suhu - suhu_referensi
-    koreksi = selisih_suhu * koreksi_per_derajat
-    brix_terkoreksi = brix_awal + koreksi
-
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
-        st.caption(f"Perhitungan: {brix_awal:.2f} + ({selisih_suhu:.2f} × {koreksi_per_derajat}) = {brix_terkoreksi:.2f} °Bx")
-
-        if brix_terkoreksi < 10:
-            kualitas = "Rendah (contoh: buah belum matang)"
-        elif 10 <= brix_terkoreksi <= 15:
-            kualitas = "Sedang (standar industri untuk buah segar)"
-        else:
-            kualitas = "Tinggi (madu, sirup, atau buah sangat manis)"
-
-        st.info(f"Kategori Kadar Gula: {kualitas}")
-
-    with col2:
-        st.image("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",caption="Buah Random!", use_column_width=True)
-
-st.markdown("---")
-st.caption("📘 Dibuat dengan Streamlit untuk edukasi uji Brix pada pangan.")
+# Penjelasan Hasil Perhitungan
+elif menu == "Penjelasan Hasil":
+    st.header("Penjelasan Hasil Perhitungan Uji Brix")
+    st.write("""
+    Hasil perhitungan Brix memberikan informasi tentang kadar gula dalam suatu larutan.
+    - **Nilai Brix tinggi** menunjukkan bahwa larutan tersebut memiliki kadar gula yang tinggi, seperti sari buah murni atau sirup.
+    - **Nilai Brix rendah** menunjukkan bahwa larutan tersebut memiliki kadar gula rendah, seperti air minum atau jus yang diencerkan.
+    """)
+    st.write("""
+    **Contoh Aplikasi**:
+    - Dalam industri makanan dan minuman, nilai Brix digunakan untuk memastikan konsistensi rasa dan kualitas produk.
+    - Dalam bidang pertanian, nilai Brix digunakan untuk mengevaluasi kualitas hasil panen, seperti buah dan sayuran.
+    """)
