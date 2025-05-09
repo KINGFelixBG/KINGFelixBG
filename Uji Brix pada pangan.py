@@ -28,7 +28,7 @@ if show_dark_mode:
         """, unsafe_allow_html=True
     )
 
-st.markdown("---")
+
 
 if st.button("Hitung Koreksi Brix"):
     # Koreksi suhu sederhana: setiap kenaikan 1°C di atas 20°C, nilai brix bertambah 0.03°
