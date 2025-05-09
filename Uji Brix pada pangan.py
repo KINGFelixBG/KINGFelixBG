@@ -53,6 +53,6 @@ if st.button("Hitung Koreksi Brix"):
 
     st.info(f"Kategori Kadar Gula: {kualitas}")
 
-st.markdown("---")
+
 st.caption("📘 Dibuat dengan Streamlit untuk edukasi uji Brix pada pangan.")
 
