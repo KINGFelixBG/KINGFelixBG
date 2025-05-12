@@ -27,7 +27,18 @@ if show_dark_mode:
         </style>
         """, unsafe_allow_html=True
     )
-
+st.markdown("""
+    <style>
+    .stApp {
+        background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                    url('https://img.freepik.com/free-photo/person-paying-using-nfc-technology_23-2149893740.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 
 if st.button("Hitung Koreksi Brix"):
