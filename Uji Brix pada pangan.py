@@ -16,24 +16,6 @@ with st.sidebar:
     brix_awal = st.number_input("Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
     suhu = st.number_input("Masukkan suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
     show_dark_mode = st.checkbox("Aktifkan Mode Gelap")
-import streamlit as st
-
-# CSS untuk latar belakang gradien
-page_bg_css = """
-<style>
-[data-testid="stAppViewContainer"] > .main {
-    background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-[data-testid="stHeader"] {
-    background: rgba(0,0,0,0);
-}
-</style>
-"""
-
-st.markdown(page_bg_css, unsafe_allow_html=True)
 
 # Apply dark mode
 if show_dark_mode:
