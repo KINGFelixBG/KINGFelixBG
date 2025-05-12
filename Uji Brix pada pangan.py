@@ -22,7 +22,7 @@ if show_dark_mode:
     st.markdown(
         """
         <style>
-            body { background-color: #1e1e1e; color: white; }
+            body { background-color: #1e1e1e; color: red; }
             .stApp { background-color: #1e1e1e; }
         </style>
         """, unsafe_allow_html=True
