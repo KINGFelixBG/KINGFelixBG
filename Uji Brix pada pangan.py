@@ -3,74 +3,80 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# Judul aplikasi
+# Judul Aplikasi
 st.title("🍓 Uji Brix pada Bahan Pangan 🍍")
 
-# Deskripsi aplikasi
 st.write("""
-Aplikasi ini membantu menghitung nilai Brix dari larutan gula dengan koreksi suhu, serta menghitung estimasi densitas dan kandungan gula dalam gram per liter (g/L).
+Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).
 """)
 
-# Sidebar input
+# Sidebar untuk input
 with st.sidebar:
-    st.header("Input Parameter")
-    brix_awal = st.number_input("Nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
+    st.header("Input Data")
+    brix_awal = st.number_input("Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
     suhu = st.number_input("Suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
 
-# Tombol perhitungan
-if st.button("🔍 Hitung Koreksi & Gula"):
-    suhu_referensi = 20.0  # suhu acuan
-    faktor_koreksi = 0.03  # koreksi °Bx per °C
+# Tombol untuk menghitung
+if st.button("🔍 Hitung"):
 
-    # Koreksi suhu
+    # --- Koreksi Suhu ---
+    suhu_referensi = 20.0
+    faktor_koreksi = 0.03
     selisih_suhu = suhu - suhu_referensi
     koreksi = selisih_suhu * faktor_koreksi
     brix_terkoreksi = brix_awal + koreksi
 
-    # Estimasi densitas (kg/L) dan gula (g/L)
-    densitas = 0.998 + (0.00385 * brix_terkoreksi / 10)  # pendekatan sederhana
-    gula_gram_per_liter = brix_terkoreksi * densitas * 10
+    # --- Estimasi Densitas (kg/L) ---
+    densitas = 0.998 + (0.00385 * (brix_terkoreksi / 10))
 
-    # Tampilkan hasil
-    st.success(f"✅ Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
-    st.caption(f"Perhitungan: {brix_awal:.2f} + ({selisih_suhu:.2f} × {faktor_koreksi}) = {brix_terkoreksi:.2f} °Bx")
+    # --- Estimasi Kandungan Gula (g/L) ---
+    gula_per_liter = brix_terkoreksi * densitas * 10
 
-    st.info(f"📏 Densitas larutan (perkiraan): {densitas:.4f} kg/L")
-    st.info(f"🍬 Estimasi Kandungan Gula: {gula_gram_per_liter:.2f} gram/L")
+    # --- Tampilkan Hasil ---
+    st.subheader("📊 Hasil Perhitungan")
 
-    # Penilaian kualitas
+    st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
+    st.caption(f"Perhitungan: {brix_awal:.2f} + ({suhu:.2f} - 20) × 0.03 = {brix_terkoreksi:.2f} °Bx")
+
+    st.info(f"Densitas larutan (perkiraan): {densitas:.4f} kg/L")
+    st.info(f"Kandungan gula (estimasi): {gula_per_liter:.2f} gram/L")
+
+    # --- Kategori Kadar Gula ---
     if brix_terkoreksi < 10:
         kualitas = "Rendah (buah belum matang)"
     elif 10 <= brix_terkoreksi <= 15:
         kualitas = "Sedang (standar buah segar)"
     else:
         kualitas = "Tinggi (madu, sirup, buah sangat manis)"
-    
-    st.warning(f"Kategori Gula: {kualitas}")
+    st.warning(f"Kategori Kadar Gula: {kualitas}")
 
-# Informasi tambahan
-with st.expander("📘 Tentang Uji Brix"):
+# Penjelasan tambahan
+with st.expander("📘 Penjelasan Rumus dan Alat"):
     st.markdown("""
-**Apa itu Derajat Brix?**
-- Derajat Brix (°Bx) menunjukkan jumlah padatan terlarut (biasanya sukrosa) dalam larutan.
-- Contoh: 10 °Bx berarti terdapat 10 gram gula per 100 gram larutan.
+### 📌 Rumus Perhitungan
 
-**Alat yang Digunakan:**
-1. **Refraktometer**: Untuk membaca °Bx.
-2. **Termometer**: Untuk mengukur suhu larutan.
-3. **Hidrometer / Piknometer**: Untuk mengukur densitas secara lebih presisi.
+1. **Koreksi Suhu:**
+   \nBrix_terkoreksi = Brix_awal + (Suhu - 20) × 0.03
 
-**Koreksi Suhu:**
-- Refraktometer manual perlu koreksi karena indeks bias dipengaruhi suhu.
-- Rumus koreksi sederhana:  
-  `Brix_terkoreksi = Brix_awal + (Suhu - 20) * 0.03`
+2. **Estimasi Densitas (kg/L):**
+   \nDensitas ≈ 0.998 + (Brix / 10 × 0.00385)
+
+3. **Estimasi Kandungan Gula (g/L):**
+   \nGula (g/L) = Brix × Densitas × 10
+
+### 🧪 Alat yang Digunakan
+
+- **Refraktometer**: Mengukur Brix secara langsung.
+- **Termometer**: Untuk mengetahui suhu larutan.
+- **Hidrometer / Piknometer**: Untuk validasi densitas larutan.
+
+### ⚠️ Catatan:
+- Rumus yang digunakan adalah pendekatan praktis dan dapat memiliki deviasi dari hasil laboratorium tergantung komposisi larutan.
 """)
 
-# F
+# Footer
+st.caption("📗 Dibuat dengan Streamlit | Edukasi uji Brix, densitas, dan kandungan gula dalam pangan cair.")
 
+  
 
-   
-    
-   
-    
 
