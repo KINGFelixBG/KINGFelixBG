@@ -32,8 +32,8 @@ st.markdown("""
 
 # Judul dengan animasi berjalan
 st.markdown("""
-    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:red; font-size:30px; font-weight:bold;">
-        🍇 UJI BRIX PADA BAHAN PANGAN - CEK GULA, DENSITAS, DAN KUALITAS 🍎
+    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:white; font-size:30px; font-weight:bold;">
+        🍫 UJI BRIX PADA BAHAN PANGAN - CEK GULA, DENSITAS, DAN KUALITAS 🍬
     </marquee>
 """, unsafe_allow_html=True)
 
