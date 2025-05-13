@@ -1,49 +1,48 @@
-
 import streamlit as st
 
 # Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# CSS untuk background dan font tebal
+# Tambahkan CSS untuk background gelap dan font tebal
 st.markdown("""
     <style>
     .stApp {
         background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                    url('https://images.unsplash.com/photo-1577436932028-2d18814ef666?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=emrecan-arik-h1_R9-o9an0-unsplash.jpg');
+                    url("https://images.unsplash.com/photo-1577436932028-2d18814ef666?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=emrecan-arik-h1_R9-o9an0-unsplash.jpg");
         background-size: cover;
         background-position: center;
+        background-repeat: no-repeat;
         color: white;
         font-weight: bold;
     }
-    @keyframes flicker {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.7; }
-    }
-    .title-anim {
-        font-size: 2.5em;
-        text-align: center;
-        animation: flicker 2s infinite;
-        color: #FFDD57;
+    .animated-title {
+        font-size: 32px;
         font-weight: bold;
+        color: #fff;
+        animation: fadein 2s ease-in-out;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    @keyframes fadein {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Judul animasi
-st.markdown('<div class="title-anim">🍓 Uji Brix pada Bahan Pangan 🍍</div>', unsafe_allow_html=True)
+# Judul Aplikasi dengan animasi
+st.markdown('<div class="animated-title">🍓 Uji Brix pada Bahan Pangan 🍍</div>', unsafe_allow_html=True)
 
-st.write("""
-Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).
-""")
+# Deskripsi aplikasi
+st.write("Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).")
 
-# Input kolom
-col1, col2 = st.columns(2)
-with col1:
+# Sidebar untuk input
+with st.sidebar:
+    st.header("Input Data")
     brix_awal = st.number_input("Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
-with col2:
     suhu = st.number_input("Suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
 
-# Tombol hitung
+# Tombol untuk menghitung
 if st.button("🔍 Hitung"):
 
     # --- Koreksi Suhu ---
@@ -53,47 +52,57 @@ if st.button("🔍 Hitung"):
     koreksi = selisih_suhu * faktor_koreksi
     brix_terkoreksi = brix_awal + koreksi
 
-    # --- Estimasi Densitas ---
+    st.subheader("📌 Koreksi Suhu")
+    st.success(f"Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
+    st.caption(f"Perhitungan: {brix_awal:.2f} + ({suhu:.2f} - {suhu_referensi}) × {faktor_koreksi} = {brix_terkoreksi:.2f} °Bx")
+
+    # --- Estimasi Densitas (kg/L) ---
     densitas = 0.998 + (0.00385 * (brix_terkoreksi / 10))
 
-    # --- Estimasi Gula (gram/L) ---
+    st.subheader("📌 Estimasi Densitas")
+    st.info(f"Densitas larutan (perkiraan): {densitas:.4f} kg/L")
+    st.caption(f"Perhitungan: 0.998 + (0.00385 × ({brix_terkoreksi:.2f} ÷ 10)) = {densitas:.4f} kg/L")
+
+    # --- Estimasi Kandungan Gula (g/L) ---
     gula_per_liter = brix_terkoreksi * densitas * 10
 
-    # Tampilkan hasil di bawah kolom
-    with col1:
-        st.success(f"Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
-        st.caption(f"Perhitungan: {brix_awal:.2f} + ({suhu:.2f} - 20) × 0.03 = {brix_terkoreksi:.2f}")
-    with col2:
-        st.info(f"Densitas: {densitas:.4f} kg/L")
-        st.info(f"Gula: {gula_per_liter:.2f} g/L")
+    st.subheader("📌 Estimasi Kandungan Gula")
+    st.info(f"Kandungan gula: {gula_per_liter:.2f} gram/L")
+    st.caption(f"Perhitungan: {brix_terkoreksi:.2f} × {densitas:.4f} × 10 = {gula_per_liter:.2f} g/L")
 
-    # Kategori kualitas
+    # --- Kategori Kadar Gula ---
+    st.subheader("📌 Kategori Kadar Gula")
     if brix_terkoreksi < 10:
         kualitas = "Rendah (buah belum matang)"
     elif 10 <= brix_terkoreksi <= 15:
         kualitas = "Sedang (standar buah segar)"
     else:
-        kualitas = "Tinggi (madu, sirup, buah manis)"
-    st.warning(f"Kategori Kadar Gula: {kualitas}")
+        kualitas = "Tinggi (madu, sirup, buah sangat manis)"
+    st.warning(f"Kategori: {kualitas}")
 
-# Penjelasan
+# Penjelasan tambahan
 with st.expander("📘 Penjelasan Rumus dan Alat"):
     st.markdown("""
-**Rumus Perhitungan:**
+### 📌 Rumus Perhitungan
 
-1. Koreksi Suhu:  
-   `Brix_terkoreksi = Brix_awal + (Suhu - 20) × 0.03`
+1. **Koreksi Suhu:**
+   \nBrix_terkoreksi = Brix_awal + (Suhu - 20) × 0.03
 
-2. Estimasi Densitas:  
-   `Densitas ≈ 0.998 + (Brix / 10 × 0.00385)`
+2. **Estimasi Densitas (kg/L):**
+   \nDensitas ≈ 0.998 + (Brix / 10 × 0.00385)
 
-3. Estimasi Gula (g/L):  
-   `Gula = Brix × Densitas × 10`
+3. **Estimasi Kandungan Gula (g/L):**
+   \nGula (g/L) = Brix × Densitas × 10
 
-**Alat yang Digunakan:**
-- Refraktometer
-- Termometer
-- Hidrometer / Piknometer
+### 🧪 Alat yang Digunakan
+
+- **Refraktometer**: Mengukur Brix secara langsung.
+- **Termometer**: Untuk mengetahui suhu larutan.
+- **Hidrometer / Piknometer**: Untuk validasi densitas larutan.
+
+### ⚠️ Catatan:
+- Rumus ini merupakan pendekatan umum dan dapat bervariasi tergantung jenis larutan.
 """)
 
-st.caption("📗 Dibuat dengan Streamlit | Edukasi uji Brix, densitas, dan kandungan gula dalam pangan cair.")
+# Footer
+st.caption("📗 Dibuat dengan Streamlit | Uji Brix, densitas, dan kadar gula larutan pangan.")
