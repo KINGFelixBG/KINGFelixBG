@@ -1,6 +1,9 @@
 import streamlit as st
 
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
+
+# Title
+st.title("😚 Uji Brix pada Bahan Pangan🍕🍟")
 st.markdown("""
     <style>
     .stApp {
@@ -13,9 +16,6 @@ st.markdown("""
     }
     </style>
     """, unsafe_allow_html=True)
-# Title
-st.title("😚 Uji Brix pada Bahan Pangan🍕🍟")
-
 # Description
 st.write("""
 Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, dengan koreksi suhu.
