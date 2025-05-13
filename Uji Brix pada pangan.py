@@ -1,10 +1,14 @@
 import streamlit as st
 
-# Konfigurasi halaman
-st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
+st.set_page_config(page_title="Uji Brix", layout="centered")
 
-# Judul Aplikasi
-st.title("🍓 Uji Brix pada Bahan Pangan 🍍")
+# Judul dengan animasi berjalan
+st.markdown("""
+    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:red; font-size:30px; font-weight:bold;">
+        🍇 UJI BRIX PADA BAHAN PANGAN - CEK GULA, DENSITAS, DAN KUALITAS 🍎
+    </marquee>
+""", unsafe_allow_html=True)
+
 
 st.write("""
 Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).
@@ -35,14 +39,11 @@ if st.button("🔍 Hitung"):
     # --- Tampilkan Hasil ---
     st.subheader("📊 Hasil Perhitungan")
 
-    st.write(f"### 1. **Nilai Brix Terkoreksi:** {brix_terkoreksi:.2f} °Bx")
+    st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
     st.caption(f"Perhitungan: {brix_awal:.2f} + ({suhu:.2f} - 20) × 0.03 = {brix_terkoreksi:.2f} °Bx")
 
-    st.write(f"### 2. **Estimasi Densitas Larutan:** {densitas:.4f} kg/L")
-    st.caption(f"Perhitungan: Densitas ≈ 0.998 + ({brix_terkoreksi} / 10) × 0.00385 = {densitas:.4f} kg/L")
-
-    st.write(f"### 3. **Estimasi Kandungan Gula:** {gula_per_liter:.2f} gram/L")
-    st.caption(f"Perhitungan: Gula (g/L) = Brix × Densitas × 10 = {brix_terkoreksi:.2f} × {densitas:.4f} × 10 = {gula_per_liter:.2f} gram/L")
+    st.info(f"Densitas larutan (perkiraan): {densitas:.4f} kg/L")
+    st.info(f"Kandungan gula (estimasi): {gula_per_liter:.2f} gram/L")
 
     # --- Kategori Kadar Gula ---
     if brix_terkoreksi < 10:
@@ -79,8 +80,3 @@ with st.expander("📘 Penjelasan Rumus dan Alat"):
 
 # Footer
 st.caption("📗 Dibuat dengan Streamlit | Edukasi uji Brix, densitas, dan kandungan gula dalam pangan cair.")
-
-
-
-
-
