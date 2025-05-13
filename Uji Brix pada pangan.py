@@ -1,10 +1,14 @@
 import streamlit as st
 
-# Konfigurasi halaman
-st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
+st.set_page_config(page_title="Uji Brix", layout="centered")
 
-# Judul Aplikasi
-st.title("🍓 Uji Brix pada Bahan Pangan 🍍")
+# Judul dengan animasi berjalan
+st.markdown("""
+    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:red; font-size:30px; font-weight:bold;">
+        🍇 UJI BRIX PADA BAHAN PANGAN - CEK GULA, DENSITAS, DAN KUALITAS 🍎
+    </marquee>
+""", unsafe_allow_html=True)
+
 
 st.write("""
 Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).
