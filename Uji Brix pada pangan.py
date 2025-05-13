@@ -1,17 +1,19 @@
-
 import streamlit as st
 
 # Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# Tambahkan CSS untuk background dan animasi judul
+# Tambahkan CSS untuk background gelap dan font tebal
 st.markdown("""
     <style>
     .stApp {
-        background: url("https://images.unsplash.com/photo-1577436932028-2d18814ef666?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=emrecan-arik-h1_R9-o9an0-unsplash.jpg");
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                    url("https://images.unsplash.com/photo-1577436932028-2d18814ef666?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=emrecan-arik-h1_R9-o9an0-unsplash.jpg");
         background-size: cover;
         background-position: center;
+        background-repeat: no-repeat;
         color: white;
+        font-weight: bold;
     }
     .animated-title {
         font-size: 32px;
@@ -104,3 +106,4 @@ with st.expander("📘 Penjelasan Rumus dan Alat"):
 
 # Footer
 st.caption("📗 Dibuat dengan Streamlit | Uji Brix, densitas, dan kadar gula larutan pangan.")
+
