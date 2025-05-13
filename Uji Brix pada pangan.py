@@ -30,8 +30,12 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Judul Aplikasi dengan animasi
-st.markdown('<div class="animated-title">🍓 Uji Brix pada Bahan Pangan 🍍</div>', unsafe_allow_html=True)
+# Judul dengan animasi berjalan
+st.markdown("""
+    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:red; font-size:30px; font-weight:bold;">
+        🍇 UJI BRIX PADA BAHAN PANGAN - CEK GULA, DENSITAS, DAN KUALITAS 🍎
+    </marquee>
+""", unsafe_allow_html=True)
 
 # Deskripsi aplikasi
 st.write("Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).")
