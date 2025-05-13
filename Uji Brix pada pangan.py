@@ -25,7 +25,7 @@ if show_dark_mode:
         <style>
             .stApp {
                 background-color: #1e1e1e;
-                color: white;
+                color: red;
             }
         </style>
     """, unsafe_allow_html=True)
