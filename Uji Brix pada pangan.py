@@ -3,24 +3,44 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# Menambahkan gambar latar belakang
+# CSS untuk latar belakang dan font menyala
 st.markdown(
     f"""
     <style>
     .stApp {{
-        background-image: url("https://images.unsplash.com/photo-1577436932028-2d18814ef666?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb");
+        background-image: url("https://images.unsplash.com/photo-1577436932028-2d18814ef666?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=emrecan-arik-h1_R9-o9an0-unsplash.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
         background-attachment: fixed;
+        color: #000000;
+    }}
+    .stApp > * {{
+        background-color: rgba(255, 255, 255, 0.85);
+        padding: 1rem;
+        border-radius: 10px;
+    }}
+    h1, h2, h3, .stMarkdown, .stTextInput label, .stNumberInput label, .stSidebar, .stCaption {{
+        color: #111111 !important;
+        font-weight: 700;
+        text-shadow: 0px 0px 2px #ffffff;
+    }}
+    .stButton>button {{
+        font-weight: bold;
+        color: white;
+        background-color: #e63946;
     }}
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Judul Aplikasi
-st.title("🍓 Uji Brix pada Bahan Pangan 🍍")
+# Judul dengan animasi berjalan
+st.markdown("""
+    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:red; font-size:30px; font-weight:bold;">
+        🍇 UJI BRIX PADA BAHAN PANGAN - CEK GULA, DENSITAS, DAN KUALITAS 🍎
+    </marquee>
+""", unsafe_allow_html=True)
 
 st.write("""
 Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).
