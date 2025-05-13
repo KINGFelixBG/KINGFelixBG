@@ -10,6 +10,14 @@ with st.sidebar:
     suhu = st.number_input("Masukkan suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
     show_dark_mode = st.checkbox("Aktifkan Mode Gelap")
 
+
+
+# Judul dan deskripsi
+st.title("🍓 Uji Brix pada Bahan Pangan 🍍")
+st.write("""
+Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, 
+dengan koreksi suhu dan interpretasi kadar gula.
+""")
 # Terapkan background
 if show_dark_mode:
     # Mode gelap
@@ -35,14 +43,6 @@ else:
             }
         </style>
     """, unsafe_allow_html=True)
-
-# Judul dan deskripsi
-st.title("🍓 Uji Brix pada Bahan Pangan 🍍")
-st.write("""
-Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, 
-dengan koreksi suhu dan interpretasi kadar gula.
-""")
-
 # Kalkulasi koreksi Brix
 if st.button("Hitung Koreksi Brix"):
     suhu_referensi = 20.0
