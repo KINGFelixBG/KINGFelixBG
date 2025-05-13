@@ -1,14 +1,26 @@
 import streamlit as st
 
-st.set_page_config(page_title="Uji Brix", layout="centered")
+# Konfigurasi halaman
+st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# Judul dengan animasi berjalan
-st.markdown("""
-    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:red; font-size:30px; font-weight:bold;">
-        🍇 UJI BRIX PADA BAHAN PANGAN - CEK GULA, DENSITAS, DAN KUALITAS 🍎
-    </marquee>
-""", unsafe_allow_html=True)
+# Menambahkan gambar latar belakang
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url("https://images.unsplash.com/photo-1577436932028-2d18814ef666?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
+# Judul Aplikasi
+st.title("🍓 Uji Brix pada Bahan Pangan 🍍")
 
 st.write("""
 Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).
@@ -39,11 +51,14 @@ if st.button("🔍 Hitung"):
     # --- Tampilkan Hasil ---
     st.subheader("📊 Hasil Perhitungan")
 
-    st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
+    st.write(f"### 1. **Nilai Brix Terkoreksi:** {brix_terkoreksi:.2f} °Bx")
     st.caption(f"Perhitungan: {brix_awal:.2f} + ({suhu:.2f} - 20) × 0.03 = {brix_terkoreksi:.2f} °Bx")
 
-    st.info(f"Densitas larutan (perkiraan): {densitas:.4f} kg/L")
-    st.info(f"Kandungan gula (estimasi): {gula_per_liter:.2f} gram/L")
+    st.write(f"### 2. **Estimasi Densitas Larutan:** {densitas:.4f} kg/L")
+    st.caption(f"Perhitungan: Densitas ≈ 0.998 + ({brix_terkoreksi:.2f} / 10) × 0.00385 = {densitas:.4f} kg/L")
+
+    st.write(f"### 3. **Estimasi Kandungan Gula:** {gula_per_liter:.2f} gram/L")
+    st.caption(f"Perhitungan: Gula (g/L) = Brix × Densitas × 10 = {brix_terkoreksi:.2f} × {densitas:.4f} × 10 = {gula_per_liter:.2f} gram/L")
 
     # --- Kategori Kadar Gula ---
     if brix_terkoreksi < 10:
