@@ -22,21 +22,28 @@ if show_dark_mode:
         </style>
     """, unsafe_allow_html=True)
 else:
-    # Background merah
+    # Background dengan gambar buah-buahan
     st.markdown("""
         <style>
             .stApp {
-                background-color: #ff4c4c;
-                color: white;
+                background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+                            url('https://images.unsplash.com/photo-1576402187875-df2b3e60eb53?auto=format&fit=crop&w=1350&q=80');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                color: black;
             }
         </style>
     """, unsafe_allow_html=True)
 
 # Judul dan deskripsi
-st.title("😚 Uji Brix pada Bahan Pangan 🍕🍟")
-st.write("Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, dengan koreksi suhu.")
+st.title("🍓 Uji Brix pada Bahan Pangan 🍍")
+st.write("""
+Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, 
+dengan koreksi suhu dan interpretasi kadar gula.
+""")
 
-# Kalkulasi
+# Kalkulasi koreksi Brix
 if st.button("Hitung Koreksi Brix"):
     suhu_referensi = 20.0
     koreksi_per_derajat = 0.03
@@ -58,9 +65,35 @@ if st.button("Hitung Koreksi Brix"):
 
     st.info(f"Kategori Kadar Gula: {kualitas}")
 
+# Penjelasan tambahan
+with st.expander("📘 Penjelasan Tentang Uji Brix"):
+    st.markdown("""
+**Apa itu Brix?**  
+Derajat Brix (°Bx) menunjukkan jumlah zat padat terlarut (terutama gula) dalam larutan.  
+Contoh: 10°Bx berarti terdapat 10 gram gula dalam 100 gram larutan.
+
+**Rumus Koreksi Suhu:**  
+Brix_terkoreksi = Brix_awal + (Suhu_sample - Suhu_referensi) × Faktor_koreksi  
+- Suhu referensi biasanya 20°C  
+- Faktor koreksi umum: 0.03 °Bx/°C
+
+**Alat yang Digunakan:**  
+- Refraktometer (analog/digital)  
+- Hidrometer  
+- Termometer  
+- Piknometer
+
+**Langkah Pengukuran:**  
+1. Kalibrasi alat dengan air suling (0 °Bx)  
+2. Ambil sampel larutan  
+3. Ukur nilai Brix  
+4. Koreksi suhu jika diperlukan  
+""")
+
 # Footer
 st.markdown("---")
 st.caption("📘 Dibuat dengan Streamlit untuk edukasi uji Brix pada pangan.")
 
-
+   
+    
 
