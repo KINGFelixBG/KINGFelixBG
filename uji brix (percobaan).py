@@ -1,176 +1,137 @@
 import streamlit as st
-
-# Konfigurasi halaman
-st.set_page_config(
-    page_title="Perhitungan Uji Brix",
-    layout="centered"
-)
-
-# CSS untuk tampilan
-st.markdown(
-    """
+# Tambahkan CSS untuk background dan animasi judul
+st.markdown("""
     <style>
     .stApp {
-        background-image: url("https://cdn.pixabay.com/photo/2015/12/22/04/00/molecule-1100683_1280.png");
+        background: url("https://www.freepik.com/free-photo/world-diabetes-day-sugar-wooden-bowl-dark-surface_10401423.htm#fromView=search&page=1&position=0&uuid=9560b611-7013-4137-bd4d-6bee811e2d5d&query=sugar");
         background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+        background-position: center;
+        color: white;
     }
-
-    .button-slide {
-        transition: transform 0.3s ease, background-color 0.3s ease;
+    .animated-title {
+        font-size: 32px;
+        font-weight: bold;
+        color: #fff;
+        animation: fadein 2s ease-in-out;
+        text-align: center;
+        margin-bottom: 20px;
     }
-    .button-slide:hover {
-        transform: translateX(10px);
-        background-color: #4CAF50;
-    }
-
-    .block-container {
-        color: black;
+    @keyframes fadein {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
     }
     </style>
-    """,
-    unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
 
-# Sidebar navigasi
-st.sidebar.title("Navigasi")
-menu = st.sidebar.radio(
-    "Pilih Menu:",
-    ["Beranda", "Pengaturan", "UJI BRIX"],
-    key="main_menu"
-)
+def hitung_kebutuhan_kalori(umur, tb, bb, jenis_kelamin, aktivitas):
+    if jenis_kelamin == "Pria":
+        bmr = 66 + (13.7 * bb) + (5 * tb) - (6.8 * umur)
+    else:
+        bmr = 655 + (9.6 * bb) + (1.8 * tb) - (4.7 * umur)
 
-# Beranda
-if menu == "Beranda":
-    st.title("Selamat Datang di Website Perhitungan Uji Brix")
-    st.markdown("---")
+    faktor_aktivitas = {
+        "Sedentari (minim aktivitas)": 1.2,
+        "Ringan (olahraga ringan)": 1.375,
+        "Sedang (olahraga 3-5 hari/minggu)": 1.55,
+        "Berat (olahraga intens)": 1.725,
+    }
+
+    return bmr * faktor_aktivitas[aktivitas]
+
+def tampilkan_tentang_aplikasi():
+    st.header("Tentang Aplikasi 🌞")
     st.write("""
-    Website ini dibuat untuk membantu memahami konsep dan perhitungan Uji Brix. 
-    Dengan fitur-fitur edukasi dan interaktif, pengguna dapat mempelajari:
-    - Pengertian Uji Brix
-    - Jenis-jenis Uji Brix
-    - Alat-alat pembacaan Uji Brix
-    - Rumus dan perhitungan nilai Brix
+    Aplikasi ini membantu menghitung kebutuhan kalori dan konsumsi gula ideal berdasarkan
+    data pribadi dan tingkat aktivitas harian. Cocok untuk kamu yang ingin hidup lebih sehat! 🍏💪
+    Meningkatkan Kesadaran Gizi dan Pola Makan SehatBanyak orang belum menyadari berapa banyak gula yang mereka konsumsi setiap hari.
+    Aplikasi ini membantu pengguna memahami batas konsumsi gula maksimal dan ideal berdasarkan kondisi tubuh dan aktivitas mereka.
     """)
 
-# Pengaturan
-elif menu == "Pengaturan":
-    st.title("Pengaturan")
-    st.markdown("---")
-    bahasa = st.radio("Pilih Bahasa", ["Bahasa Indonesia", "English"], key="language")
-    if bahasa == "Bahasa Indonesia":
-        st.success("Bahasa diatur ke Bahasa Indonesia.")
-    elif bahasa == "English":
-        st.success("Language set to English.")
+def tampilkan_pengenalan_kelompok():
+    st.header("Pengenalan Kelompok 👩‍💻👨‍💻")
+    st.write("""
+    Aplikasi ini dikembangkan oleh kelompok 12:
 
-# UJI BRIX
-elif menu == "UJI BRIX":
-    st.title("UJI BRIX")
-    st.markdown("---")
-    sub_menu = st.radio(
-        "Pilih Sub-Menu:",
-        ["Pengertian", "Jenis Uji Brix", "Alat-Alat Pembacaan Uji Brix", "Rumus", "Kalkulator & Validasi"],
-        key="uji_brix_menu"
-    )
+    - *Allyshia Rahma Putri*: 2420570  💻
+    - *I Gede Hilmi Krisna Hadinata*: 2420604 🎨
+    - *Khaesa Shafa Nuraini*: 2420608 📝
+    - *Pramudya Bayu Perkasa*: 2420640  🩵
+    - *Rahmawati Syafitri*: 2420645 💻
+    - *Allyshia Rahma Putri*: 2420570  🐈
+    - *I Gede Hilmi Krisna Hadinata*: 2420604 🐔
+    - *Khaesa Shafa Nuraini*: 2420608 🐼
+    - *Pramudya Bayu Perkasa*: 2420640  🐆
+    - *Rahmawati Syafitri*: 2420645 🦓
 
-    if sub_menu == "Pengertian":
-        st.header("Pengertian Uji Brix")
-        st.write("""
-        Uji Brix adalah metode untuk menentukan kadar gula terlarut dalam suatu larutan. 
-        Nilai Brix dinyatakan dalam bentuk persentase (%), yang merepresentasikan jumlah gram gula dalam 100 ml larutan.
-        """)
+    
+   Kelompok Kami hadir untuk membantu kamu lebih peduli terhadap pola makan! 😄
+    """)
 
-    elif sub_menu == "Jenis Uji Brix":
-        st.header("Jenis Uji Brix")
-        st.write("""
-        Uji Brix dapat dibagi menjadi beberapa jenis berdasarkan teknik pengukurannya:
-        1. **Refraktometri**: Menggunakan refraktometer untuk mengukur pembiasan cahaya.
-        2. **Densitometri**: Mengukur kepadatan larutan menggunakan hydrometer.
-        3. **Spektrofotometri**: Menggunakan alat spektrofotometer untuk analisis lebih mendalam.
-        """)
+def main():
+    # Styling for whole app + kalkulator black background
+    st.markdown("""
+        <style>
+        /* Background putih dan teks hitam untuk seluruh aplikasi */
+        .reportview-container, .main, .sidebar .sidebar-content {
+            background-color: #1E3A8A;
+            color: black;
+        }
 
-    elif sub_menu == "Alat-Alat Pembacaan Uji Brix":
-        st.header("Alat-Alat Pembacaan Uji Brix")
-        st.write("""
-        Berikut adalah alat-alat yang umum digunakan untuk pembacaan nilai Brix:
-        1. **Refraktometer**:
-           - Alat optik yang mengukur indeks bias larutan.
-           - Terdiri dari refraktometer manual dan digital.
-        2. **Hydrometer Brix**:
-           - Mengukur densitas larutan untuk menghitung kadar gula.
-           - Umumnya digunakan dalam industri besar.
-        3. **Digital Brix Meter**:
-           - Alat elektronik presisi tinggi untuk nilai Brix.
-           - Cocok untuk analisis cepat dan akurat.
-        """)
+        /* Header dan teks umum putih */
+        h1, h2, h3, h4, h5, h6, p, label, .css-1cpxqw2, .css-qrbaxs {
+            color: white !important;
+        }
 
-    elif sub_menu == "Rumus":
-        st.header("Rumus Menghitung Uji Brix")
-        st.write(r"""
-        Rumus dasar untuk menghitung nilai Brix adalah:
-        \[
-        	ext{Brix (\%)} = rac{m_{	ext{gula}}}{m_{	ext{larutan}}} 	imes 100
-        \]
-        Di mana:
-        - \(m_{	ext{gula}}\) adalah massa gula terlarut (dalam gram).
-        - \(m_{	ext{larutan}}\) adalah massa total larutan (dalam gram).
+        /* Kalkulator section: hitam dengan teks putih */
+        .kalkulator-container {
+            background-color: #000000;  /* Hitam */
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
 
-        ### Rumus Koreksi Suhu
-        Koreksi suhu diperlukan untuk memperbaiki nilai Brix sesuai dengan suhu pengukuran:
-        \[
-        Brix_{	ext{koreksi}} = Brix_{	ext{awal}} + (T - T_{	ext{referensi}}) 	imes K
-        \]
-        Di mana:
-        - \(T\) adalah suhu pengukuran (°C).
-        - \(T_{	ext{referensi}}) adalah suhu referensi (biasanya 20°C).
-        - \(K\) adalah koefisien koreksi suhu (standar: 0.03 per °C).
-        """)
+        /* Ubah input label dan tulisan dalam kalkulator */
+        .kalkulator-container label, .kalkulator-container span, .kalkulator-container p {
+            color: white !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
-    elif sub_menu == "Kalkulator & Validasi":
-        st.header("Kalkulator Brix & Deteksi Anomali")
-        st.markdown("Masukkan data sampel di bawah ini:")
+    st.title("Kalkulator Kebutuhan Gula Harian 🍭")
 
-        with st.form("form_brix"):
-            jenis_sampel = st.selectbox("Jenis Sampel", ["Pilih", "Madu", "Jus Apel", "Sirup Glukosa", "Air Tebu"])
-            nilai_brix = st.number_input("Nilai Brix (%)", min_value=0.0, max_value=100.0, step=0.1)
-            suhu = st.number_input("Suhu Sampel (°C)", min_value=-10.0, max_value=120.0, step=0.5)
-            submit = st.form_submit_button("Cek Hasil")
+    menu = st.sidebar.radio("Pilih Menu 🤔", ["Kalkulator Kebutuhan Kalori 🧮", "Tentang Aplikasi 🌞", "Pengenalan Kelompok 👩‍💻👨‍💻"])
 
-        if submit:
-            def deteksi_anomali(brix, suhu, jenis_sampel):
-                warning = []
-                if brix > 85:
-                    warning.append("⚠️ Nilai Brix terlalu tinggi untuk larutan biasa.")
-                elif brix < 0.5:
-                    warning.append("⚠️ Nilai Brix terlalu rendah. Pastikan sampel bukan air murni.")
-                if suhu < 0 or suhu > 80:
-                    warning.append("⚠️ Suhu di luar batas aman untuk pengujian refraktometer.")
-                batas_sampel = {
-                    "madu": (70, 85),
-                    "jus apel": (10, 15),
-                    "sirup glukosa": (20, 45),
-                    "air tebu": (15, 25),
-                }
-                js = jenis_sampel.lower()
-                if js in batas_sampel:
-                    batas_min, batas_max = batas_sampel[js]
-                    if brix < batas_min or brix > batas_max:
-                        warning.append(f"⚠️ Nilai Brix tidak sesuai untuk {jenis_sampel.title()} ({batas_min}–{batas_max} °Bx).")
-                return warning
+    if menu == "Kalkulator Kebutuhan Kalori 🧮":
+        st.markdown('<div class="kalkulator-container">', unsafe_allow_html=True)
 
-            if jenis_sampel == "Pilih":
-                st.warning("Silakan pilih jenis sampel terlebih dahulu.")
-            else:
-                st.subheader("📊 Hasil Analisis:")
-                st.write(f"- Jenis Sampel: **{jenis_sampel}**")
-                st.write(f"- Nilai Brix: **{nilai_brix} °Bx**")
-                st.write(f"- Suhu Sampel: **{suhu} °C**")
+        umur = st.number_input("Umur (tahun) 🎂", min_value=1, max_value=100, value=25)
+        tb = st.number_input("Tinggi Badan (cm) 📏", min_value=50, max_value=250, value=170)
+        bb = st.number_input("Berat Badan (kg) ⚖️", min_value=10, max_value=200, value=65)
+        jenis_kelamin = st.selectbox("Jenis Kelamin 👦👧", ["Pria", "Wanita"])
+        aktivitas = st.selectbox("Tingkat Aktivitas 🏃", [
+            "Sedentari (minim aktivitas)",
+            "Ringan (olahraga ringan)",
+            "Sedang (olahraga 3-5 hari/minggu)",
+            "Berat (olahraga intens)"
+        ])
 
-                hasil = deteksi_anomali(nilai_brix, suhu, jenis_sampel)
-                if hasil:
-                    st.error("🚨 Ditemukan Anomali:")
-                    for peringatan in hasil:
-                        st.write(peringatan)
-                else:
-                    st.success("✅ Data valid. Tidak ada anomali terdeteksi.")
+        if st.button("Hitung Kebutuhan Gula 🍬"):
+            kebutuhan_kalori = hitung_kebutuhan_kalori(umur, tb, bb, jenis_kelamin, aktivitas)
+            gula_maks_10 = kebutuhan_kalori * 0.10 / 4
+            gula_ideal_5 = kebutuhan_kalori * 0.05 / 4
+
+            st.success(f"Estimasi kebutuhan kalori: {kebutuhan_kalori:.0f} kkal/hari 💪")
+            st.info(f"Konsumsi gula maksimal (10% energi): {gula_maks_10:.1f} gram/hari 🍭")
+            st.info(f"Saran konsumsi ideal (5% energi): {gula_ideal_5:.1f} gram/hari 🍬")
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    elif menu == "Tentang Aplikasi 🌞":
+        tampilkan_tentang_aplikasi()
+
+    elif menu == "Pengenalan Kelompok 👩‍💻👨‍💻":
+        tampilkan_pengenalan_kelompok()
+
+if __name__ == "__main__":
+    main()
