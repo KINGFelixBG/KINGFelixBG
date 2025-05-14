@@ -20,8 +20,6 @@ def tampilkan_tentang_aplikasi():
     st.write("""
     Aplikasi ini membantu menghitung kebutuhan kalori dan konsumsi gula ideal berdasarkan
     data pribadi dan tingkat aktivitas harian. Cocok untuk kamu yang ingin hidup lebih sehat! 🍏💪
-    Meningkatkan Kesadaran Gizi dan Pola Makan Sehat. Banyak orang belum menyadari berapa banyak gula yang mereka konsumsi setiap hari.
-    Aplikasi ini membantu pengguna memahami batas konsumsi gula maksimal dan ideal berdasarkan kondisi tubuh dan aktivitas mereka.
     """)
 
 def tampilkan_pengenalan_kelompok():
@@ -29,42 +27,47 @@ def tampilkan_pengenalan_kelompok():
     st.write("""
     Aplikasi ini dikembangkan oleh kelompok 12:
 
-    - *Allyshia Rahma Putri*: 2420570  💻
-    - *I Gede Hilmi Krisna Hadinata*: 2420604 🎨
-    - *Khaesa Shafa Nuraini*: 2420608 📝
-    - *Pramudya Bayu Perkasa*: 2420640  🩵
-    - *Rahmawati Syafitri*: 2420645 💻
+    - *Allyshia Rahma Putri*: 2420570 💻🐈
+    - *I Gede Hilmi Krisna Hadinata*: 2420604 🎨🐔
+    - *Khaesa Shafa Nuraini*: 2420608 📝🐼
+    - *Pramudya Bayu Perkasa*: 2420640 🩵🐆
+    - *Rahmawati Syafitri*: 2420645 💻🦓
 
-    Kelompok Kami hadir untuk membantu kamu lebih peduli terhadap pola makan! 😄
+    Kelompok kami hadir untuk membantu kamu lebih peduli terhadap pola makan! 😄
     """)
 
 def main():
-    # Background Gambar
+    st.set_page_config(page_title="Kalkulator Gula Harian", layout="centered")
+
+    # Styling untuk background dan teks
     st.markdown("""
         <style>
         .stApp {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                        url("https://images.unsplash.com/photo-1634612831148-03a8550e1d52?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0");
+            background-image: url("https://images.unsplash.com/photo-1634612831148-03a8550e1d52?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            color: white;
+            position: relative;
         }
-
+        .stApp::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);  /* Overlay gelap */
+            z-index: -1;
+        }
         h1, h2, h3, h4, h5, h6, p, label, .css-1cpxqw2, .css-qrbaxs {
             color: white !important;
         }
-
         .kalkulator-container {
             background-color: rgba(0, 0, 0, 0.75);
             color: white;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
-        }
-
-        .kalkulator-container label, .kalkulator-container span, .kalkulator-container p {
-            color: white !important;
         }
         </style>
     """, unsafe_allow_html=True)
