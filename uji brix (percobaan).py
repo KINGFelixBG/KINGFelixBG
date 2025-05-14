@@ -38,8 +38,6 @@ def tampilkan_pengenalan_kelompok():
 
 def main():
     st.set_page_config(page_title="Kalkulator Gula Harian", layout="centered")
-
-    # Styling untuk background dan teks
     st.markdown("""
         <style>
         .stApp {
@@ -47,21 +45,23 @@ def main():
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            position: relative;
         }
+
         .stApp::before {
             content: "";
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6);  /* Overlay gelap */
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);  /* Lapisan gelap */
             z-index: -1;
         }
+
         h1, h2, h3, h4, h5, h6, p, label, .css-1cpxqw2, .css-qrbaxs {
             color: white !important;
         }
+
         .kalkulator-container {
             background-color: rgba(0, 0, 0, 0.75);
             color: white;
@@ -69,9 +69,16 @@ def main():
             border-radius: 10px;
             margin-bottom: 20px;
         }
+
+        .kalkulator-container label, .kalkulator-container span, .kalkulator-container p {
+            color: white !important;
+        }
         </style>
     """, unsafe_allow_html=True)
 
+   
+          
+    
     st.title("Kalkulator Kebutuhan Gula Harian 🍭")
 
     menu = st.sidebar.radio("Pilih Menu 🤔", ["Kalkulator Kebutuhan Kalori 🧮", "Tentang Aplikasi 🌞", "Pengenalan Kelompok 👩‍💻👨‍💻"])
