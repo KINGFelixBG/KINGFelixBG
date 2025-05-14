@@ -1,27 +1,4 @@
 import streamlit as st
-# Tambahkan CSS untuk background dan animasi judul
-st.markdown("""
-    <style>
-    .stApp {
-        background: url("https://www.freepik.com/free-photo/world-diabetes-day-sugar-wooden-bowl-dark-surface_10401423.htm#fromView=search&page=1&position=0&uuid=9560b611-7013-4137-bd4d-6bee811e2d5d&query=sugar");
-        background-size: cover;
-        background-position: center;
-        color: white;
-    }
-    .animated-title {
-        font-size: 32px;
-        font-weight: bold;
-        color: #fff;
-        animation: fadein 2s ease-in-out;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    @keyframes fadein {
-        0% {opacity: 0;}
-        100% {opacity: 1;}
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 def hitung_kebutuhan_kalori(umur, tb, bb, jenis_kelamin, aktivitas):
     if jenis_kelamin == "Pria":
@@ -43,7 +20,7 @@ def tampilkan_tentang_aplikasi():
     st.write("""
     Aplikasi ini membantu menghitung kebutuhan kalori dan konsumsi gula ideal berdasarkan
     data pribadi dan tingkat aktivitas harian. Cocok untuk kamu yang ingin hidup lebih sehat! 🍏💪
-    Meningkatkan Kesadaran Gizi dan Pola Makan SehatBanyak orang belum menyadari berapa banyak gula yang mereka konsumsi setiap hari.
+    Meningkatkan Kesadaran Gizi dan Pola Makan Sehat. Banyak orang belum menyadari berapa banyak gula yang mereka konsumsi setiap hari.
     Aplikasi ini membantu pengguna memahami batas konsumsi gula maksimal dan ideal berdasarkan kondisi tubuh dan aktivitas mereka.
     """)
 
@@ -57,41 +34,35 @@ def tampilkan_pengenalan_kelompok():
     - *Khaesa Shafa Nuraini*: 2420608 📝
     - *Pramudya Bayu Perkasa*: 2420640  🩵
     - *Rahmawati Syafitri*: 2420645 💻
-    - *Allyshia Rahma Putri*: 2420570  🐈
-    - *I Gede Hilmi Krisna Hadinata*: 2420604 🐔
-    - *Khaesa Shafa Nuraini*: 2420608 🐼
-    - *Pramudya Bayu Perkasa*: 2420640  🐆
-    - *Rahmawati Syafitri*: 2420645 🦓
 
-    
-   Kelompok Kami hadir untuk membantu kamu lebih peduli terhadap pola makan! 😄
+    Kelompok Kami hadir untuk membantu kamu lebih peduli terhadap pola makan! 😄
     """)
 
 def main():
-    # Styling for whole app + kalkulator black background
+    # Background Gambar
     st.markdown("""
         <style>
-        /* Background putih dan teks hitam untuk seluruh aplikasi */
-        .reportview-container, .main, .sidebar .sidebar-content {
-            background-color: #1E3A8A;
-            color: black;
+        .stApp {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url("https://images.unsplash.com/photo-1634612831148-03a8550e1d52?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
         }
 
-        /* Header dan teks umum putih */
         h1, h2, h3, h4, h5, h6, p, label, .css-1cpxqw2, .css-qrbaxs {
             color: white !important;
         }
 
-        /* Kalkulator section: hitam dengan teks putih */
         .kalkulator-container {
-            background-color: #000000;  /* Hitam */
+            background-color: rgba(0, 0, 0, 0.75);
             color: white;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
         }
 
-        /* Ubah input label dan tulisan dalam kalkulator */
         .kalkulator-container label, .kalkulator-container span, .kalkulator-container p {
             color: white !important;
         }
