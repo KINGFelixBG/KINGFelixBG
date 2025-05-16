@@ -109,4 +109,4 @@ with st.expander("📘 Penjelasan Rumus dan Alat"):
 """)
 
 # Footer
-st.caption("📗 Dibuat dengan Streamlit | Uji Brix, densitas, dan kadar gula larutan pangan.")
+st.caption("📗 Dibuat dengan Streamlit Oleh Kelompok 4  PRODI PMIP POLITEKNIK AKA BOGOR 2025 | Uji Brix, densitas, dan kadar gula larutan pangan.")
