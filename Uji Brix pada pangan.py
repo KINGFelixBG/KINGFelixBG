@@ -12,7 +12,7 @@ st.markdown("""
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        color: white;
+        color: #111;
         font-weight: bold;
     }
     .animated-title {
