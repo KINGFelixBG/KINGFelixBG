@@ -8,11 +8,11 @@ st.markdown("""
     <style>
     .stApp {
         background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
-                    url("https://images.unsplash.com/photo-1712397943847-e104395a1a8b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMGJsdWUlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww");
+                    url("https://images.unsplash.com/photo-1724405143873-cdaa5cac918e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGlnaHQlMjBibHVlJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        color: #111;
+        color: white;
         font-weight: bold;
     }
     .animated-title {
