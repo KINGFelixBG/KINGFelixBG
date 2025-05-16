@@ -3,22 +3,22 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# Tambahkan CSS untuk background gelap dan font tebal
+# Tambahkan CSS untuk background cerah dan teks jelas
 st.markdown("""
     <style>
     .stApp {
-        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                    url("https://images.unsplash.com/photo-1533628635777-112b2239b1c7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fHdoaXRlJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D");
+        background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
+                    url("https://images.unsplash.com/photo-1533628635777-112b2239b1c7?w=1200&auto=format&fit=crop&q=80");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        color: white;
-        font-weight:
+        color: #111;
+        font-weight: bold;
     }
     .animated-title {
         font-size: 32px;
         font-weight: bold;
-        color: #fff;
+        color: #333;
         animation: fadein 2s ease-in-out;
         text-align: center;
         margin-bottom: 20px;
@@ -32,7 +32,7 @@ st.markdown("""
 
 # Judul dengan animasi berjalan
 st.markdown("""
-    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:white; font-size:30px; font-weight:bold;">
+    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:#333; font-size:30px; font-weight:bold;">
         🍫 UJI BRIX PADA BAHAN PANGAN 🍬
     </marquee>
 """, unsafe_allow_html=True)
