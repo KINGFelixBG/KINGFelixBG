@@ -8,7 +8,7 @@ st.markdown("""
     <style>
     .stApp {
         background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
-                    url("https://images.unsplash.com/photo-1724405143873-cdaa5cac918e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGlnaHQlMjBibHVlJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D");
+                    url("https://images.unsplash.com/photo-1614850523011-8f49ffc73908?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGlnaHQlMjBibHVlJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
