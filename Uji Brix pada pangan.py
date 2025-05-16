@@ -40,11 +40,10 @@ st.markdown("""
 # Deskripsi aplikasi
 st.write("Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).")
 
-# Sidebar untuk input
-with st.sidebar:
-    st.header("Input Data")
-    brix_awal = st.number_input("Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
-    suhu = st.number_input("Suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
+# Input data langsung di halaman utama
+st.header("📥 Masukkan Data")
+brix_awal = st.number_input("Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
+suhu = st.number_input("Suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
 
 # Tombol untuk menghitung
 if st.button("🔍 Hitung"):
