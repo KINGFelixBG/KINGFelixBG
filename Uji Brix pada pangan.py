@@ -3,12 +3,10 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# Deteksi mode gelap/terang browser dan sesuaikan CSS
-st.markdown("""
-# Pilihan mode gelap/terang dari pengguna
-mode = st.sidebar.radio("🌓 Pilih Mode Tampilan:", ["Terang", "Gelap"])
+# --- Pilihan tampilan mode ---
+mode = st.sidebar.radio("🌓 Pilih Mode Tampilan", ["Terang", "Gelap"])
 
-# Terapkan CSS berdasarkan pilihan
+# --- CSS Berdasarkan Mode ---
 if mode == "Gelap":
     st.markdown("""
         <style>
@@ -17,6 +15,7 @@ if mode == "Gelap":
                         url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60");
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             color: white;
         }
         </style>
@@ -29,54 +28,34 @@ else:
                         url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60");
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             color: #111;
         }
         </style>
     """, unsafe_allow_html=True)
 
+# --- Menu utama ---
+menu = st.sidebar.radio("📂 Navigasi", ["Tentang", "Kalkulator"])
 
-    <style>
-    html[data-theme='dark'] .stApp {
-        background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
-                    url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZG9kZGxlcyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        color: white;
-    }
-    html[data-theme='light'] .stApp {
-        background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
-                    url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZG9kZGxlcyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        color: #111;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-# Sidebar menu
-menu = st.sidebar.radio("📂 Menu", ["Tentang", "Kalkulator"])
-
-# Tentang
+# --- Halaman Tentang ---
 if menu == "Tentang":
-    st.header("KELOMPOK 4")
+    st.header("👥 KELOMPOK 4")
     st.markdown("""
 **Program Studi:** PMIP  
 **Politeknik AKA Bogor**  
 **Tahun:** 2025
 
 **Anggota:**
-1. Azahra Putrie A  (2420579)
-2. Daris Fadillah R (2420585)
-3. Muthi'ah Azizah  (2420628)
-4. Revan Ar-Rafi    (2420651)
+1. Azahra Putrie A  (2420579)  
+2. Daris Fadillah R (2420585)  
+3. Muthi'ah Azizah  (2420628)  
+4. Revan Ar-Rafi    (2420651)  
 5. Shaqilla Balqies (2420662)
 """)
-    st.image("https://upload.wikimedia.org/wikipedia/id/8/82/Logo_Politeknik_AKA_Bogor.png")
+    st.image("https://upload.wikimedia.org/wikipedia/id/8/82/Logo_Politeknik_AKA_Bogor.png", width=150)
     st.caption("© Kelompok 4 | Uji Brix, Densitas, dan Gula Larutan")
 
-# Kalkulator
+# --- Halaman Kalkulator ---
 elif menu == "Kalkulator":
     st.markdown("""
         <marquee behavior="scroll" direction="left" scrollamount="10" style="font-size:30px; font-weight:bold;">
@@ -115,7 +94,7 @@ elif menu == "Kalkulator":
             st.warning("Tinggi (madu, sirup, buah sangat manis)")
 
     with st.expander("📘 Penjelasan Rumus dan Alat"):
-        st.markdown("""
+        st.markdown(r"""
 ### 📌 Rumus Perhitungan
 
 1. **Koreksi Suhu:**
