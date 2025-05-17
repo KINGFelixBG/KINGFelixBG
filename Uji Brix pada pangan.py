@@ -3,7 +3,7 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# Tambahkan CSS untuk background cerah dan teks jelas
+# CSS background
 st.markdown("""
     <style>
     .stApp {
@@ -18,29 +18,29 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Sidebar navigasi
+# Sidebar menu
 menu = st.sidebar.radio("📂 Menu", ["Informasi Kelompok", "Kalkulator"])
 
-# --- Menu: Informasi Kelompok ---
-elif menu == "Informasi Kelompok":
-    st.header("Kelompok 4")
+# =========== MENU INFORMASI KEL 4 ===========
+if menu == "Informasi Kelompok":
+    st.header("👥 Informasi Kelompok 4")
     st.markdown("""
 **Program Studi:** PMIP  
 **Politeknik AKA Bogor**  
 **Tahun:** 2025
 
 **Anggota:**
-1. Azahra Putrie A  (2420579)
-2. Daris Fadillah R (2420585)
-3. Muthi'ah Azizah  (2420628)
-4. Revan Ar-Rafi    (2420651)
-5. Shaqilla Balqies (2420662)
+- Nama 1
+- Nama 2
+- Nama 3
+- Nama 4
+- Nama 5
 """)
+    st.image("https://upload.wikimedia.org/wikipedia/id/6/67/Logo_Politeknik_AKA_Bogor.png", width=200, caption="Politeknik AKA Bogor")
+    st.caption("© Kelompok 4 | Uji Brix, Densitas, dan Gula Larutan")
 
-
-# --- Menu: Kalkulator ---
-if menu == "Kalkulator":
-    # Judul animasi
+# =========== MENU KALKULATOR ===========
+elif menu == "Kalkulator":
     st.markdown("""
         <marquee behavior="scroll" direction="left" scrollamount="10" style="color:#333; font-size:30px; font-weight:bold;">
             🍫 UJI BRIX PADA BAHAN PANGAN 🍬
@@ -54,57 +54,48 @@ if menu == "Kalkulator":
     suhu = st.number_input("Suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
 
     if st.button("🔍 Hitung"):
-
-        suhu_referensi = 20.0
-        faktor_koreksi = 0.03
-        selisih_suhu = suhu - suhu_referensi
-        koreksi = selisih_suhu * faktor_koreksi
+        suhu_ref = 20.0
+        koreksi = (suhu - suhu_ref) * 0.03
         brix_terkoreksi = brix_awal + koreksi
 
         st.subheader("📌 Koreksi Suhu")
         st.success(f"Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
-        st.caption(f"Perhitungan: {brix_awal:.2f} + ({suhu:.2f} - {suhu_referensi}) × {faktor_koreksi} = {brix_terkoreksi:.2f} °Bx")
 
-        densitas = 0.998 + (0.00385 * (brix_terkoreksi / 10))
-
+        densitas = 0.998 + 0.00385 * (brix_terkoreksi / 10)
         st.subheader("📌 Estimasi Densitas")
-        st.info(f"Densitas larutan (perkiraan): {densitas:.4f} kg/L")
-        st.caption(f"Perhitungan: 0.998 + (0.00385 × ({brix_terkoreksi:.2f} ÷ 10)) = {densitas:.4f} kg/L")
+        st.info(f"{densitas:.4f} kg/L")
 
-        gula_per_liter = brix_terkoreksi * densitas * 10
-
+        gula = brix_terkoreksi * densitas * 10
         st.subheader("📌 Estimasi Kandungan Gula")
-        st.info(f"Kandungan gula: {gula_per_liter:.2f} gram/L")
-        st.caption(f"Perhitungan: {brix_terkoreksi:.2f} × {densitas:.4f} × 10 = {gula_per_liter:.2f} g/L")
+        st.info(f"{gula:.2f} gram/L")
 
         st.subheader("📌 Kategori Kadar Gula")
         if brix_terkoreksi < 10:
-            kualitas = "Rendah (buah belum matang)"
+            st.warning("Rendah (buah belum matang)")
         elif 10 <= brix_terkoreksi <= 15:
-            kualitas = "Sedang (standar buah segar)"
+            st.warning("Sedang (standar buah segar)")
         else:
-            kualitas = "Tinggi (madu, sirup, buah sangat manis)"
-        st.warning(f"Kategori: {kualitas}")
+            st.warning("Tinggi (madu, sirup, buah sangat manis)")
 
     with st.expander("📘 Penjelasan Rumus dan Alat"):
         st.markdown("""
 ### 📌 Rumus Perhitungan
 
-1. **Koreksi Suhu:**  
-   Brix_terkoreksi = Brix_awal + (Suhu - 20) × 0.03
+1. **Koreksi Suhu:**
+   \nBrix_terkoreksi = Brix_awal + (Suhu - 20) × 0.03
 
-2. **Estimasi Densitas (kg/L):**  
-   Densitas ≈ 0.998 + (Brix / 10 × 0.00385)
+2. **Estimasi Densitas (kg/L):**
+   \nDensitas ≈ 0.998 + (Brix / 10 × 0.00385)
 
-3. **Estimasi Kandungan Gula (g/L):**  
-   Gula (g/L) = Brix × Densitas × 10
+3. **Estimasi Kandungan Gula (g/L):**
+   \nGula (g/L) = Brix × Densitas × 10
 
 ### 🧪 Alat yang Digunakan
 
-- **Refraktometer**: Mengukur Brix.
-- **Termometer**: Untuk suhu larutan.
-- **Hidrometer / Piknometer**: Validasi densitas.
+- **Refraktometer**: Mengukur Brix secara langsung.
+- **Termometer**: Untuk mengetahui suhu larutan.
+- **Hidrometer / Piknometer**: Untuk validasi densitas larutan.
 
 ### ⚠️ Catatan:
-- Pendekatan kasar, hasil bisa bervariasi tergantung jenis larutan.
+- Rumus ini merupakan pendekatan umum dan dapat bervariasi tergantung jenis larutan.
 """)
