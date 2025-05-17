@@ -19,7 +19,24 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Sidebar navigasi
-menu = st.sidebar.radio("📂 Menu", ["Kalkulator", "Informasi Kelompok"])
+menu = st.sidebar.radio("📂 Menu", ["Informasi Kelompok", "Kalkulator"])
+
+# --- Menu: Informasi Kelompok ---
+elif menu == "Informasi Kelompok":
+    st.header("Kelompok 4")
+    st.markdown("""
+**Program Studi:** PMIP  
+**Politeknik AKA Bogor**  
+**Tahun:** 2025
+
+**Anggota:**
+1. Azahra Putrie A  (2420579)
+2. Daris Fadillah R (2420585)
+3. Muthi'ah Azizah  (2420628)
+4. Revan Ar-Rafi    (2420651)
+5. Shaqilla Balqies (2420662)
+""")
+
 
 # --- Menu: Kalkulator ---
 if menu == "Kalkulator":
@@ -91,21 +108,3 @@ if menu == "Kalkulator":
 ### ⚠️ Catatan:
 - Pendekatan kasar, hasil bisa bervariasi tergantung jenis larutan.
 """)
-
-# --- Menu: Informasi Kelompok ---
-elif menu == "Informasi Kelompok":
-    st.header("Kelompok 4")
-    st.markdown("""
-**Program Studi:** PMIP  
-**Politeknik AKA Bogor**  
-**Tahun:** 2025
-
-**Anggota:**
-1. Azahra Putrie A  (2420579)
-2. Daris Fadillah R (2420585)
-3. Muthi'ah Azizah  (2420628)
-4. Revan Ar-Rafi    (2420651)
-5. Shaqilla Balqies (2420662)
-""")
-    st.image("https://upload.wikimedia.org/wikipedia/id/6/67/Logo_Politeknik_AKA_Bogor.png", width=200, caption="Politeknik AKA Bogor")
-    st.caption("© Kelompok 4 | Uji Brix, Densitas, dan Gula Larutan")
