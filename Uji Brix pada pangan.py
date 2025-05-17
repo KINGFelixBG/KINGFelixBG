@@ -31,18 +31,18 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Sidebar Informasi Kelompok
-st.sidebar.title("👥 Informasi Kelompok 4")
+st.sidebar.title("Kelompok 4")
 st.sidebar.markdown("""
 **Program Studi:** PMIP  
 **Politeknik AKA Bogor**  
 **Tahun:** 2025
 
 **Anggota:**
-- Nama 1
-- Nama 2
-- Nama 3
-- Nama 4
-- Nama 5
+1. Azahra Putrie A (2420579)
+2. Daris Fadillah R (2420585)
+3. Muthi'ah Azizah (2420628)
+4. Revan Ar-Rafi (2420651)
+5. Shaqilla Balqies (2420662)
 """)
 
 # Judul dengan animasi berjalan
