@@ -23,18 +23,18 @@ menu = st.sidebar.radio("📂 Menu", ["Informasi Kelompok", "Kalkulator"])
 
 # =========== MENU INFORMASI KEL 4 ===========
 if menu == "Informasi Kelompok":
-    st.header("👥 Informasi Kelompok 4")
+    st.header("Kelompok 4")
     st.markdown("""
 **Program Studi:** PMIP  
 **Politeknik AKA Bogor**  
 **Tahun:** 2025
 
 **Anggota:**
-- Nama 1
-- Nama 2
-- Nama 3
-- Nama 4
-- Nama 5
+1. Azahra Putrie A  (2420579)
+2. Daris Fadillah R (2420585)
+3. Muthi'ah Azizah  (2420628)
+4. Revan Ar-Rafi    (2420651)
+5. Shaqilla Balqies (2420662)
 """)
     st.image("https://upload.wikimedia.org/wikipedia/id/6/67/Logo_Politeknik_AKA_Bogor.png", width=200, caption="Politeknik AKA Bogor")
     st.caption("© Kelompok 4 | Uji Brix, Densitas, dan Gula Larutan")
