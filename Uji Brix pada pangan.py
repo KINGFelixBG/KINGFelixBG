@@ -39,7 +39,7 @@ menu = st.sidebar.radio("📂 Navigasi", ["Tentang", "Kalkulator"])
 
 # --- Halaman Tentang ---
 if menu == "Tentang":
-    st.header("👥 KELOMPOK 4")
+    st.header(" KELOMPOK 4")
     st.markdown("""
 **Program Studi:** PMIP  
 **Politeknik AKA Bogor**  
