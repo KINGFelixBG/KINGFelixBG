@@ -146,7 +146,7 @@ if menu == "Kalkulator Brix":
         Densitas = 0.998 + (Brix / 10 * 0.00385)
 
         3. **Estimasi Kandungan Gula (g/L):**  
-        Gula (g/L) = Brix × Densitas × 10
+        Gula (g/L) = Brix * Densitas * 10
 
         ### 🧪 Alat yang Digunakan
 
