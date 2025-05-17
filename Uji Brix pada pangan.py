@@ -5,14 +5,35 @@ st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
 # Deteksi mode gelap/terang browser dan sesuaikan CSS
 st.markdown("""
-    <script>
-    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-    if (darkThemeMq.matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-    }
-    </script>
+# Pilihan mode gelap/terang dari pengguna
+mode = st.sidebar.radio("🌓 Pilih Mode Tampilan:", ["Terang", "Gelap"])
+
+# Terapkan CSS berdasarkan pilihan
+if mode == "Gelap":
+    st.markdown("""
+        <style>
+        .stApp {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                        url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+else:
+    st.markdown("""
+        <style>
+        .stApp {
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
+                        url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60");
+            background-size: cover;
+            background-position: center;
+            color: #111;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
 
     <style>
     html[data-theme='dark'] .stApp {
