@@ -3,17 +3,33 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# CSS background
+# Deteksi mode gelap/terang browser dan sesuaikan CSS
 st.markdown("""
+    <script>
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (darkThemeMq.matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+    </script>
+
     <style>
-    .stApp {
+    html[data-theme='dark'] .stApp {
+        background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                    url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZG9kZGxlcyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+    }
+    html[data-theme='light'] .stApp {
         background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
                     url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZG9kZGxlcyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         color: #111;
-        font-weight: bold;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -21,8 +37,8 @@ st.markdown("""
 # Sidebar menu
 menu = st.sidebar.radio("📂 Menu", ["Tentang", "Kalkulator"])
 
-# =========== MENU INFORMASI KEL 4 ===========
-if menu == "Tentang":
+# Tentang
+if menu == "Informasi Kelompok":
     st.header("KELOMPOK 4")
     st.markdown("""
 **Program Studi:** PMIP  
@@ -37,12 +53,12 @@ if menu == "Tentang":
 5. Shaqilla Balqies (2420662)
 """)
     st.image("https://upload.wikimedia.org/wikipedia/id/8/82/Logo_Politeknik_AKA_Bogor.png")
-    st.caption(" Kelompok 4 | Uji Brix, Densitas, dan Gula Larutan")
+    st.caption("© Kelompok 4 | Uji Brix, Densitas, dan Gula Larutan")
 
-# =========== MENU KALKULATOR ===========
+# Kalkulator
 elif menu == "Kalkulator":
     st.markdown("""
-        <marquee behavior="scroll" direction="left" scrollamount="10" style="color:#333; font-size:30px; font-weight:bold;">
+        <marquee behavior="scroll" direction="left" scrollamount="10" style="font-size:30px; font-weight:bold;">
             🍫 UJI BRIX PADA BAHAN PANGAN 🍬
         </marquee>
     """, unsafe_allow_html=True)
