@@ -3,115 +3,158 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# Deteksi mode gelap/terang browser dan sesuaikan CSS
+# CSS & JS: Ganti ikon panah dengan tombol "Menu"
 st.markdown("""
-    <script>
-    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-    if (darkThemeMq.matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-    }
-    </script>
-
     <style>
-    html[data-theme='dark'] .stApp {
-        background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
-                    url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZG9kZGxlcyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D");
+    /* Background terang atau gelap menyesuaikan */
+    .stApp {
+        background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+                    url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=800&auto=format&fit=crop&q=60");
         background-size: cover;
         background-position: center;
-        background-repeat: no-repeat;
-        color: white;
-    }
-    html[data-theme='light'] .stApp {
-        background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
-                    url("https://images.unsplash.com/photo-1649783465020-1e0c6f9ced0e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZG9kZGxlcyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
         color: #111;
+        font-weight: bold;
+    }
+
+    /* Sembunyikan panah default sidebar */
+    [data-testid="collapsedControl"] {
+        visibility: hidden;
+    }
+
+    /* Tombol Menu kustom */
+    #custom-menu-button {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 6px 14px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 9999;
+        font-weight: bold;
     }
     </style>
+
+    <script>
+    function toggleSidebar() {
+        const sidebar = window.parent.document.querySelector('[data-testid="stSidebar"]');
+        const toggleBtn = window.parent.document.querySelector('[data-testid="collapsedControl"]');
+        if (sidebar && toggleBtn) {
+            toggleBtn.click();  // Klik tombol panah default
+        }
+    }
+
+    // Tambahkan tombol kustom jika belum ada
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const existingButton = window.parent.document.getElementById("custom-menu-button");
+        if (!existingButton) {
+            const btn = document.createElement("button");
+            btn.innerHTML = "📂 Menu";
+            btn.id = "custom-menu-button";
+            btn.onclick = toggleSidebar;
+            window.parent.document.body.appendChild(btn);
+        }
+    });
+    </script>
 """, unsafe_allow_html=True)
 
 # Sidebar menu
-menu = st.sidebar.radio("📂 Menu", ["Tentang", "Kalkulator"])
+with st.sidebar:
+    menu = st.radio("Pilih Menu:", ["Tentang", "Kalkulator Brix"])
 
-# Tentang
-if menu == "Informasi Kelompok":
+# Judul animasi di atas halaman
+st.markdown("""
+    <marquee behavior="scroll" direction="left" scrollamount="10" style="color:#333; font-size:30px; font-weight:bold;">
+        🍫 UJI BRIX PADA BAHAN PANGAN 🍬
+    </marquee>
+""", unsafe_allow_html=True)
+
+# Halaman 1: Tentang
+elif menu == "Tentang":
     st.header("KELOMPOK 4")
     st.markdown("""
-**Program Studi:** PMIP  
-**Politeknik AKA Bogor**  
-**Tahun:** 2025
+    ### PRODI PMIP  
+    **POLITEKNIK AKA BOGOR - 2025**
 
-**Anggota:**
+    #### Anggota Kelompok:
 1. Azahra Putrie A  (2420579)
 2. Daris Fadillah R (2420585)
 3. Muthi'ah Azizah  (2420628)
 4. Revan Ar-Rafi    (2420651)
 5. Shaqilla Balqies (2420662)
-""")
-    st.image("https://upload.wikimedia.org/wikipedia/id/8/82/Logo_Politeknik_AKA_Bogor.png")
-    st.caption("© Kelompok 4 | Uji Brix, Densitas, dan Gula Larutan")
+ st.image("https://upload.wikimedia.org/wikipedia/id/8/82/Logo_Politeknik_AKA_Bogor.png")
+    
+# Footer
+st.caption("📗 Dibuat oleh Kelompok 4 | PMIP POLITEKNIK AKA BOGOR 2025")
 
-# Kalkulator
-elif menu == "Kalkulator":
-    st.markdown("""
-        <marquee behavior="scroll" direction="left" scrollamount="10" style="font-size:30px; font-weight:bold;">
-            🍫 UJI BRIX PADA BAHAN PANGAN 🍬
-        </marquee>
-    """, unsafe_allow_html=True)
 
+# Halaman 2: Kalkulator
+if menu == "Kalkulator Brix":
     st.write("Aplikasi ini menghitung kadar Brix yang telah dikoreksi suhu, estimasi densitas larutan, dan kandungan gula (gram/L).")
-
+    
     st.header("📥 Masukkan Data")
     brix_awal = st.number_input("Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
     suhu = st.number_input("Suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
 
     if st.button("🔍 Hitung"):
-        suhu_ref = 20.0
-        koreksi = (suhu - suhu_ref) * 0.03
+
+        # Koreksi Suhu
+        suhu_referensi = 20.0
+        faktor_koreksi = 0.03
+        selisih_suhu = suhu - suhu_referensi
+        koreksi = selisih_suhu * faktor_koreksi
         brix_terkoreksi = brix_awal + koreksi
 
         st.subheader("📌 Koreksi Suhu")
         st.success(f"Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
+        st.caption(f"Perhitungan: {brix_awal:.2f} + ({suhu:.2f} - {suhu_referensi}) × {faktor_koreksi} = {brix_terkoreksi:.2f} °Bx")
 
-        densitas = 0.998 + 0.00385 * (brix_terkoreksi / 10)
+        # Estimasi Densitas
+        densitas = 0.998 + (0.00385 * (brix_terkoreksi / 10))
+
         st.subheader("📌 Estimasi Densitas")
-        st.info(f"{densitas:.4f} kg/L")
+        st.info(f"Densitas larutan (perkiraan): {densitas:.4f} kg/L")
+        st.caption(f"Perhitungan: 0.998 + (0.00385 × ({brix_terkoreksi:.2f} ÷ 10)) = {densitas:.4f} kg/L")
 
-        gula = brix_terkoreksi * densitas * 10
+        # Estimasi Gula
+        gula_per_liter = brix_terkoreksi * densitas * 10
+
         st.subheader("📌 Estimasi Kandungan Gula")
-        st.info(f"{gula:.2f} gram/L")
+        st.info(f"Kandungan gula: {gula_per_liter:.2f} gram/L")
+        st.caption(f"Perhitungan: {brix_terkoreksi:.2f} × {densitas:.4f} × 10 = {gula_per_liter:.2f} g/L")
 
+        # Kategori Kadar Gula
         st.subheader("📌 Kategori Kadar Gula")
         if brix_terkoreksi < 10:
-            st.warning("Rendah (buah belum matang)")
+            kualitas = "Rendah (buah belum matang)"
         elif 10 <= brix_terkoreksi <= 15:
-            st.warning("Sedang (standar buah segar)")
+            kualitas = "Sedang (standar buah segar)"
         else:
-            st.warning("Tinggi (madu, sirup, buah sangat manis)")
+            kualitas = "Tinggi (madu, sirup, buah sangat manis)"
+        st.warning(f"Kategori: {kualitas}")
 
     with st.expander("📘 Penjelasan Rumus dan Alat"):
         st.markdown("""
-### 📌 Rumus Perhitungan
+        ### 📌 Rumus Perhitungan
 
-1. **Koreksi Suhu:**
-   \nBrix_terkoreksi = Brix_awal + (Suhu - 20) × 0.03
+        1. **Koreksi Suhu:**  
+        Brix_terkoreksi = Brix_awal + (Suhu - 20) × 0.03
 
-2. **Estimasi Densitas (kg/L):**
-   \nDensitas ≈ 0.998 + (Brix / 10 × 0.00385)
+        2. **Estimasi Densitas (kg/L):**  
+        Densitas ≈ 0.998 + (Brix / 10 × 0.00385)
 
-3. **Estimasi Kandungan Gula (g/L):**
-   \nGula (g/L) = Brix × Densitas × 10
+        3. **Estimasi Kandungan Gula (g/L):**  
+        Gula (g/L) = Brix × Densitas × 10
 
-### 🧪 Alat yang Digunakan
+        ### 🧪 Alat yang Digunakan
 
-- **Refraktometer**: Mengukur Brix secara langsung.
-- **Termometer**: Untuk mengetahui suhu larutan.
-- **Hidrometer / Piknometer**: Untuk validasi densitas larutan.
+        - **Refraktometer**: Mengukur Brix secara langsung.  
+        - **Termometer**: Untuk mengetahui suhu larutan.  
+        - **Hidrometer / Piknometer**: Untuk validasi densitas larutan.
 
-### ⚠️ Catatan:
-- Rumus ini merupakan pendekatan umum dan dapat bervariasi tergantung jenis larutan.
-""")
+        ### ⚠️ Catatan:
+        Rumus ini merupakan pendekatan umum dan dapat bervariasi tergantung jenis larutan.
+        """) 
+
