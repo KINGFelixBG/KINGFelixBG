@@ -19,11 +19,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Sidebar menu
-menu = st.sidebar.radio("📂 Menu", ["Informasi Kelompok", "Kalkulator"])
+menu = st.sidebar.radio("📂 Menu", ["Tentang", "Kalkulator"])
 
 # =========== MENU INFORMASI KEL 4 ===========
-if menu == "Informasi Kelompok":
-    st.header("Kelompok 4")
+if menu == "Tentang":
+    st.header("KELOMPOK 4")
     st.markdown("""
 **Program Studi:** PMIP  
 **Politeknik AKA Bogor**  
