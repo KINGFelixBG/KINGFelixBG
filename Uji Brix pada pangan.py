@@ -36,8 +36,8 @@ if menu == "Informasi Kelompok":
 4. Revan Ar-Rafi    (2420651)
 5. Shaqilla Balqies (2420662)
 """)
-    st.image("https://upload.wikimedia.org/wikipedia/id/6/67/Logo_Politeknik_AKA_Bogor.png", width=200, caption="Politeknik AKA Bogor")
-    st.caption("© Kelompok 4 | Uji Brix, Densitas, dan Gula Larutan")
+    st.image("https://upload.wikimedia.org/wikipedia/id/8/82/Logo_Politeknik_AKA_Bogor.png")
+    st.caption(" Kelompok 4 | Uji Brix, Densitas, dan Gula Larutan")
 
 # =========== MENU KALKULATOR ===========
 elif menu == "Kalkulator":
