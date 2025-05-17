@@ -140,7 +140,7 @@ if menu == "Kalkulator Brix":
         ### 📌 Rumus Perhitungan
 
         1. **Koreksi Suhu:**  
-        Brix_terkoreksi = Brix_awal + (Suhu - 20) × 0.03
+        Brix_terkoreksi = Brix_awal + (Suhu - 20) * 0.03
 
         2. **Estimasi Densitas (kg/L):**  
         Densitas ≈ 0.998 + (Brix / 10 × 0.00385)
