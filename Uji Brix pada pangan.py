@@ -30,6 +30,21 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Sidebar Informasi Kelompok
+st.sidebar.title("👥 Informasi Kelompok 4")
+st.sidebar.markdown("""
+**Program Studi:** PMIP  
+**Politeknik AKA Bogor**  
+**Tahun:** 2025
+
+**Anggota:**
+- Nama 1
+- Nama 2
+- Nama 3
+- Nama 4
+- Nama 5
+""")
+
 # Judul dengan animasi berjalan
 st.markdown("""
     <marquee behavior="scroll" direction="left" scrollamount="10" style="color:#333; font-size:30px; font-weight:bold;">
@@ -108,4 +123,4 @@ with st.expander("📘 Penjelasan Rumus dan Alat"):
 """)
 
 # Footer
-st.caption("📗 Dibuat dengan Streamlit Oleh Kelompok 4  PRODI PMIP POLITEKNIK AKA BOGOR 2025 | Uji Brix, densitas, dan kadar gula larutan pangan.")
+st.caption("📗 Dibuat dengan Streamlit Oleh Kelompok 4 PRODI PMIP POLITEKNIK AKA BOGOR 2025 | Uji Brix, densitas, dan kadar gula larutan pangan.")
