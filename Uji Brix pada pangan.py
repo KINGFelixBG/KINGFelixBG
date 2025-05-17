@@ -143,7 +143,7 @@ if menu == "Kalkulator Brix":
         Brix_terkoreksi = Brix_awal + (Suhu - 20) * 0.03
 
         2. **Estimasi Densitas (kg/L):**  
-        Densitas ≈ 0.998 + (Brix / 10 × 0.00385)
+        Densitas = 0.998 + (Brix / 10 * 0.00385)
 
         3. **Estimasi Kandungan Gula (g/L):**  
         Gula (g/L) = Brix × Densitas × 10
